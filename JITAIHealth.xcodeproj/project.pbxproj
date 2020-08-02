@@ -23,6 +23,11 @@
 		0A0904C324D459F3001FBDAA /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904C224D459F3001FBDAA /* ExtensionDelegate.swift */; };
 		0A0904C524D459F3001FBDAA /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904C424D459F3001FBDAA /* NotificationController.swift */; };
 		0A0904C724D459F4001FBDAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A0904C624D459F4001FBDAA /* Assets.xcassets */; };
+		0A0904DE24D45A2C001FBDAA /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904DD24D45A2C001FBDAA /* MotionManager.swift */; };
+		0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */; };
+		0AB07CCC24D465F400B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCB24D465F400B51630 /* HealthKit.framework */; };
+		0AB07CCF24D4660200B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCE24D4660200B51630 /* HealthKit.framework */; };
+		0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB07CD024D46D6000B51630 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +112,13 @@
 		0A0904C624D459F4001FBDAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A0904C824D459F4001FBDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A0904C924D459F4001FBDAA /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		0A0904DD24D45A2C001FBDAA /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		0AB07CC924D465F400B51630 /* JITAIHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JITAIHealth.entitlements; sourceTree = "<group>"; };
+		0AB07CCB24D465F400B51630 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "JITAIHealth WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		0AB07CCE24D4660200B51630 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		0AB07CD024D46D6000B51630 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB07CCC24D465F400B51630 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB07CCF24D4660200B51630 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +164,7 @@
 				0A0904B024D459F2001FBDAA /* JITAIHealth WatchKit App */,
 				0A0904BF24D459F3001FBDAA /* JITAIHealth WatchKit Extension */,
 				0A09048324D459EF001FBDAA /* Products */,
+				0AB07CCA24D465F400B51630 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +183,7 @@
 		0A09048424D459EF001FBDAA /* JITAIHealth */ = {
 			isa = PBXGroup;
 			children = (
+				0AB07CC924D465F400B51630 /* JITAIHealth.entitlements */,
 				0A09048524D459EF001FBDAA /* AppDelegate.swift */,
 				0A09048724D459EF001FBDAA /* SceneDelegate.swift */,
 				0A09048924D459EF001FBDAA /* ViewController.swift */,
@@ -210,7 +226,11 @@
 		0A0904BF24D459F3001FBDAA /* JITAIHealth WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */,
 				0A0904C024D459F3001FBDAA /* InterfaceController.swift */,
+				0AB07CD024D46D6000B51630 /* ViewModel.swift */,
+				0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */,
+				0A0904DD24D45A2C001FBDAA /* MotionManager.swift */,
 				0A0904C224D459F3001FBDAA /* ExtensionDelegate.swift */,
 				0A0904C424D459F3001FBDAA /* NotificationController.swift */,
 				0A0904C624D459F4001FBDAA /* Assets.xcassets */,
@@ -218,6 +238,15 @@
 				0A0904C924D459F4001FBDAA /* PushNotificationPayload.apns */,
 			);
 			path = "JITAIHealth WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		0AB07CCA24D465F400B51630 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0AB07CCE24D4660200B51630 /* HealthKit.framework */,
+				0AB07CCB24D465F400B51630 /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,7 +468,10 @@
 			files = (
 				0A0904C524D459F3001FBDAA /* NotificationController.swift in Sources */,
 				0A0904C324D459F3001FBDAA /* ExtensionDelegate.swift in Sources */,
+				0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */,
 				0A0904C124D459F3001FBDAA /* InterfaceController.swift in Sources */,
+				0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */,
+				0A0904DE24D45A2C001FBDAA /* MotionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "JITAIHealth WatchKit Extension/JITAIHealth WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GT462FHWZ5;
 				INFOPLIST_FILE = "JITAIHealth WatchKit Extension/Info.plist";
@@ -633,6 +666,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "JITAIHealth WatchKit Extension/JITAIHealth WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GT462FHWZ5;
 				INFOPLIST_FILE = "JITAIHealth WatchKit Extension/Info.plist";
@@ -698,6 +732,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = JITAIHealth/JITAIHealth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GT462FHWZ5;
 				INFOPLIST_FILE = JITAIHealth/Info.plist;
@@ -719,6 +754,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = JITAIHealth/JITAIHealth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GT462FHWZ5;
 				INFOPLIST_FILE = JITAIHealth/Info.plist;

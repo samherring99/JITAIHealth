@@ -29,5 +29,11 @@
 	<string>com.herringapps.JITAIHealth</string>
 	<key>WKWatchKitApp</key>
 	<true/>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Can we access your health records?</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Can we share your updated health data?</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Can we update your health data?</string>
 </dict>
 </plist>

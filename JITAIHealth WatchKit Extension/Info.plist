@@ -30,6 +30,23 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Can we use your health records?</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Can we share your health data?</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Can we update your health records?</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Can we use your motion to determine activities?</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
+	<key>WKBackgroundModes</key>
+	<array>
+		<string>physical-therapy</string>
+		<string>workout-processing</string>
+	</array>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
