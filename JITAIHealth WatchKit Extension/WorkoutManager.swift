@@ -58,7 +58,7 @@ class WorkoutManager: MotionManagerDelegate {
 
         // Configure the workout session. Change these later?
         let workoutConfiguration = HKWorkoutConfiguration()
-        workoutConfiguration.activityType = .socialDance
+        workoutConfiguration.activityType = .play
         workoutConfiguration.locationType = .indoor
 
         do {
