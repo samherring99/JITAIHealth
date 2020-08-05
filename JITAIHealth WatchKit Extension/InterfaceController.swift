@@ -15,6 +15,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     // MARK: - Initialization
     
+    @IBOutlet var activityLabel: WKInterfaceLabel!
+    
     let workoutManager = WorkoutManager() // Instance of a WorkoutManager to start workouts and motion
     var active = false // boolean indicating application active status
     var running = false // boolean indicating workout active status.
@@ -28,6 +30,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
 
     override func awake(withContext context: Any?) {
         // Configure interface objects here. This method is called when the application is opened.
+        
         session.delegate = self
         workoutManager.delegate = self
         extSession.delegate = self
@@ -80,6 +83,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     func updateDataInController(_ manager: MotionManager, activity: Double, hr: Double) {
         let dataArray = [activity, hr] as [Double]
         let data = Data(fromArray: dataArray)
+        self.activityLabel.setText(InterfaceController.vm.currentActivity)
         self.session.sendMessageData(data, replyHandler: nil, errorHandler: nil)
     }
     

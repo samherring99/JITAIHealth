@@ -55,15 +55,18 @@ class MotionManager {
         motionActivityManager.startActivityUpdates(to: queue) { (activity) in
             
             if (activity?.walking)! {
-                print("User is walking")
+                //print("User is walking")
+                InterfaceController.vm.currentActivity = "walking"
                 prediction = 1.0
             }
             if (activity?.stationary)! {
-                print("User is sitting")
+                //print("User is sitting")
+                InterfaceController.vm.currentActivity = "sitting"
                 prediction = 0.0
             }
             if (activity?.unknown)! {
-                print("Unknown activity")
+                //print("Unknown activity")
+                InterfaceController.vm.currentActivity = "unknown"
                 prediction = -1.0
             }
             
