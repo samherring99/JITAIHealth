@@ -210,7 +210,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.tf.isHidden = false
             cell.tf.allowsEditingTextAttributes = true
             cell.tf.frame = cell.frame
-            cell.tf.text = "Type a custom location..."
             
             let indexPath = IndexPath(row: 0, section: 0)
             dataSource.insert("", at: indexPath.row)
