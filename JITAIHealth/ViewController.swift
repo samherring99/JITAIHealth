@@ -8,18 +8,36 @@
 import UIKit
 import WatchConnectivity
 
-class ViewController: UIViewController, WCSessionDelegate {
+class Cell: UITableViewCell {
+    var tf = UITextField()
+}
+
+class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
     
     // MARK: -  Initialization
     
     @IBOutlet var hrLabel: UILabel!
     @IBOutlet var activityLabel: UILabel!
+    @IBOutlet var tagButton: UIButton!
     
     var session : WCSession? // WatchConnectivity Session
+    
+    var custom = false
+    
+    let transparentView = UIView()
+    let tableView = UITableView()
+    
+    var dataSource = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(Cell.self, forCellReuseIdentifier: "Cell")
+        
+        dataSource = ["Home", "Work", "Gym", "Other"]
         
         if WCSession.isSupported() {
             session = WCSession.default
@@ -32,6 +50,40 @@ class ViewController: UIViewController, WCSessionDelegate {
             hrLabel.text = "recieving"
         }
     }
+    
+    func addTransparentView(frames: CGRect) {
+        let window = UIApplication.shared.keyWindow
+        transparentView.frame = self.view.frame ?? window?.frame as! CGRect
+        self.view.addSubview(transparentView)
+        
+        tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: 2.0 * frames.width, height: 0)
+        
+        self.view.addSubview(tableView)
+        
+        tableView.layer.cornerRadius = 5
+        
+        transparentView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
+        transparentView.addGestureRecognizer(tapGesture)
+        
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseInOut) {
+            self.transparentView.alpha = 0.5
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: 2.0 * frames.width, height: CGFloat(self.dataSource.count * 50))
+        } completion: { (nil) in }
+
+    }
+    
+    @objc func removeTransparentView() {
+        let frames = tagButton.frame
+        disableTextField()
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseInOut) {
+            self.transparentView.alpha = 0.0
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: 2.0 * frames.width, height: 0)
+        } completion: { (nil) in }
+    }
+    
+    
     
     // MARK: - WCSession code
     
@@ -76,7 +128,10 @@ class ViewController: UIViewController, WCSessionDelegate {
         // Session is disconnected from watch.
     }
 
-
+    @IBAction func displayLocMenu(_ sender: Any) {
+        addTransparentView(frames: tagButton.frame)
+    }
+    
 }
 
 // External data utilities for message sending.
@@ -104,6 +159,86 @@ extension Data {
         var array = Array<T>(repeating: 0, count: self.count/MemoryLayout<T>.stride)
         _ = array.withUnsafeMutableBytes { copyBytes(to: $0) }
         return array
+    }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+        
+        cell.textLabel?.text = dataSource[indexPath.row]
+        cell.tf.text = ""
+
+        if (!custom) { cell.tf.isEnabled = false }
+        
+        cell.tf.delegate = self
+        cell.tf.frame = cell.frame
+        
+        
+        cell.contentView.addSubview(cell.tf)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50.0
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(dataSource)
+        
+        disableTextField()
+        
+        dataSource.insert(textField.text!, at: dataSource.count - 1)
+        tableView.insertRows(at: [IndexPath(row: dataSource.count - 1, section: 0)], with: .automatic)
+        dataSource.remove(at: 0)
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: IndexPath(row: 0, section: 0)) as! Cell
+        
+        cell.tf.isEnabled = true
+        
+        if (indexPath.row == dataSource.count - 1) {
+            
+            cell.tf.isHidden = false
+            cell.tf.allowsEditingTextAttributes = true
+            cell.tf.frame = cell.frame
+            cell.tf.text = "Type a custom location..."
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            dataSource.insert("", at: indexPath.row)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+
+            for n in 0...dataSource.count - 1 {
+                let cp = tableView.cellForRow(at: IndexPath(row: n, section: 0)) as? Cell
+                cp?.tf.isEnabled = true
+            }
+            
+            custom = true
+            tableView.reloadData()
+        } else {
+            print(dataSource[indexPath.row])
+            removeTransparentView()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func disableTextField() {
+        for n in 0...dataSource.count - 1 {
+            let cp = tableView.cellForRow(at: IndexPath(row: n, section: 0)) as? Cell
+            cp?.tf.isEnabled = false
+        }
     }
 }
 
