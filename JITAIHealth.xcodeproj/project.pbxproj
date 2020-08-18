@@ -25,6 +25,8 @@
 		0A0904C724D459F4001FBDAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A0904C624D459F4001FBDAA /* Assets.xcassets */; };
 		0A0904DE24D45A2C001FBDAA /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904DD24D45A2C001FBDAA /* MotionManager.swift */; };
 		0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */; };
+		0A2F8C8424EC4D69002FFCDF /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8324EC4D69002FFCDF /* TagController.swift */; };
+		0A2F8C8624EC4FF1002FFCDF /* TagRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */; };
 		0AB07CCC24D465F400B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCB24D465F400B51630 /* HealthKit.framework */; };
 		0AB07CCF24D4660200B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCE24D4660200B51630 /* HealthKit.framework */; };
 		0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB07CD024D46D6000B51630 /* ViewModel.swift */; };
@@ -114,6 +116,8 @@
 		0A0904C924D459F4001FBDAA /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		0A0904DD24D45A2C001FBDAA /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 		0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		0A2F8C8324EC4D69002FFCDF /* TagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagController.swift; sourceTree = "<group>"; };
+		0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRowController.swift; sourceTree = "<group>"; };
 		0AB07CC924D465F400B51630 /* JITAIHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JITAIHealth.entitlements; sourceTree = "<group>"; };
 		0AB07CCB24D465F400B51630 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "JITAIHealth WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 			children = (
 				0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */,
 				0A0904C024D459F3001FBDAA /* InterfaceController.swift */,
+				0A2F8C8324EC4D69002FFCDF /* TagController.swift */,
+				0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */,
 				0AB07CD024D46D6000B51630 /* ViewModel.swift */,
 				0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */,
 				0A0904DD24D45A2C001FBDAA /* MotionManager.swift */,
@@ -467,6 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A0904C524D459F3001FBDAA /* NotificationController.swift in Sources */,
+				0A2F8C8624EC4FF1002FFCDF /* TagRowController.swift in Sources */,
+				0A2F8C8424EC4D69002FFCDF /* TagController.swift in Sources */,
 				0A0904C324D459F3001FBDAA /* ExtensionDelegate.swift in Sources */,
 				0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */,
 				0A0904C124D459F3001FBDAA /* InterfaceController.swift in Sources */,

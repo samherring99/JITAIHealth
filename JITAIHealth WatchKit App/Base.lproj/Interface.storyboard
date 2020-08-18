@@ -12,13 +12,18 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="JITAIHealth_WatchKit_App" customModuleProvider="target">
                     <items>
                         <label width="134" height="29" alignment="left" text="activity" textAlignment="center" id="V3E-lC-YEk"/>
+                        <button width="1" alignment="left" title="Tag Location" id="ble-Fc-wu2">
+                            <connections>
+                                <segue destination="vUX-QB-2XS" kind="modal" identifier="displayTags" id="Tjt-LC-ov2"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="activityLabel" destination="V3E-lC-YEk" id="MWq-Bx-olg"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="-114" y="214"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -40,6 +45,33 @@
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="JITAIHealth_WatchKit_App" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+        <!--Tags-->
+        <scene sceneID="p7O-GN-Hyt">
+            <objects>
+                <controller identifier="Tags" id="vUX-QB-2XS" customClass="TagController" customModule="JITAIHealth_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" id="6F2-ua-wbl">
+                            <items>
+                                <tableRow identifier="locationRow" id="tmr-7H-dom" customClass="TagRowController" customModule="JITAIHealth_WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="dJb-2m-xv5">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="Home" textAlignment="center" id="ptL-ja-6Hq"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="locationLabel" destination="ptL-ja-6Hq" id="m8B-lC-sRc"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="6F2-ua-wbl" id="rbO-1P-oeY"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="198" y="209"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="Niz-AI-uX2">
