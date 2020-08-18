@@ -9,6 +9,7 @@ import Foundation
 
 protocol ViewModelDelegate: class {
     func stopWorkoutUpdates()
+    func sendTagToPhone(tag: String)
 }
 
 // The ViewModel class allows for the sharing of key data elements between the SwiftUI View and the Hosting Controller
@@ -21,5 +22,9 @@ class ViewModel: ObservableObject {
     
     func stopWorkoutUpdates() {
         delegate?.stopWorkoutUpdates()
+    }
+    
+    func sendTagToPhone(tag: String) {
+        delegate?.sendTagToPhone(tag: tag)
     }
 }

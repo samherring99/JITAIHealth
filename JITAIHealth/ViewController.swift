@@ -33,6 +33,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        tagButton.isHidden = true
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: "Cell")
@@ -50,6 +52,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
             hrLabel.text = "recieving"
         }
     }
+    
+    // Leaving code for menu on phone in case it is wanted/needed later. None of the UI table code is called or utilized currently.
     
     func addTransparentView(frames: CGRect) {
         let window = UIApplication.shared.keyWindow
@@ -93,7 +97,12 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
         print("Session active")
     }
     
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print(message) //Here is where we want to do stuff with our location tags, can also change/add data if needed.
+    }
+    
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        
         let recievedData : [Double] = messageData.toArray(type: Double.self)
         
         // Update handler for WCSession message passing, called when phone recieves message update from watch.
@@ -129,7 +138,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
     }
 
     @IBAction func displayLocMenu(_ sender: Any) {
-        addTransparentView(frames: tagButton.frame)
+        //addTransparentView(frames: tagButton.frame)
     }
     
 }

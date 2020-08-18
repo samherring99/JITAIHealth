@@ -93,6 +93,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         workoutManager.stopWorkout()
     }
     
+    // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.
+    
+    func sendTagToPhone(tag: String) {
+        let locationName = [tag : ""] as [String : Any] // Change this later with more data?
+        self.session.sendMessage(locationName, replyHandler: nil, errorHandler: nil)
+    }
+
     // MARK: - Extended Runtime
     
     func extendedRuntimeSession(_ extendedRuntimeSession: WKExtendedRuntimeSession, didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason, error: Error?) {
