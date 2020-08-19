@@ -6,11 +6,14 @@
 //
 
 import WatchKit
+import UserNotifications
+import UIKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        setupRemoteNotifications()
     }
 
     func applicationDidBecomeActive() {
@@ -56,4 +59,89 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
 
+}
+
+// MARK:  - Notification Methods
+
+extension ExtensionDelegate: UNUserNotificationCenterDelegate {
+
+    func setupRemoteNotifications() {
+
+        UNUserNotificationCenter.current().delegate = self
+
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+
+            print("Permission granted: \(granted)")
+
+            guard granted else {
+                DispatchQueue.main.async {
+                    self.showNotificationsNotGrantedAlert()
+                    return
+                }
+                return
+            }
+
+            self.getNotificationSettings()
+        }
+    }
+    
+    private func getNotificationSettings() {
+        
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            
+            print("Notification settings: \(settings)")
+            
+            guard settings.authorizationStatus == .authorized else { return }
+            
+            DispatchQueue.main.async {
+                WKExtension.shared().registerForRemoteNotifications()
+                //self.onRemoteNotificationRegistration()
+            }
+        }
+    }
+    
+    func didRegisterForRemoteNotifications(withDeviceToken deviceToken: Data) {
+        
+        // Convert token to string
+        let deviceTokenString = deviceToken.map { data in String(format: "%02.2hhx", data) }.joined()
+        
+        print("Device Token: \(deviceTokenString)")
+        
+        //UserSettings.shared.deviceToken = deviceTokenString
+    }
+    
+    func didReceiveRemoteNotification(_ userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (WKBackgroundFetchResult) -> Void) {
+        print("Remote recieved")
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+            print("Will present notification...")
+
+            let categoryIdentifier = notification.request.content.categoryIdentifier
+            center.add(notification.request, withCompletionHandler: nil)
+
+        completionHandler([.banner, .badge, .sound])
+            
+        }
+    
+    private func showNotificationsNotGrantedAlert() {
+        
+        let settingsActionTitle = NSLocalizedString("Settings", comment: "")
+        let cancelActionTitle = NSLocalizedString("Cancel", comment: "")
+        let message = NSLocalizedString("You need to grant a permission from notification settings.", comment: "")
+        let title = NSLocalizedString("Push Notifications Off", comment: "")
+        
+        let settingsAction = WKAlertAction(title: settingsActionTitle, style: .default) {
+            
+            print("[WATCH PUSH NOTIFICATIONS] Go to Notification Settings")
+        }
+        
+        let cancelAction = WKAlertAction(title: cancelActionTitle, style: .cancel) {
+            print("[WATCH PUSH NOTIFICATIONS] Cancel to go to Notification Settings")
+        }
+        
+        WKExtension.shared().rootInterfaceController?.presentAlert(withTitle: title, message: message, preferredStyle: .alert, actions: [settingsAction, cancelAction])
+    }
+        
 }

@@ -27,6 +27,8 @@
 		0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */; };
 		0A2F8C8424EC4D69002FFCDF /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8324EC4D69002FFCDF /* TagController.swift */; };
 		0A2F8C8624EC4FF1002FFCDF /* TagRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */; };
+		0A2F8C8824ED74D1002FFCDF /* GeoLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */; };
+		0A2F8C8A24ED89A4002FFCDF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */; };
 		0AB07CCC24D465F400B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCB24D465F400B51630 /* HealthKit.framework */; };
 		0AB07CCF24D4660200B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCE24D4660200B51630 /* HealthKit.framework */; };
 		0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB07CD024D46D6000B51630 /* ViewModel.swift */; };
@@ -118,6 +120,8 @@
 		0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		0A2F8C8324EC4D69002FFCDF /* TagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagController.swift; sourceTree = "<group>"; };
 		0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRowController.swift; sourceTree = "<group>"; };
+		0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationManager.swift; sourceTree = "<group>"; };
+		0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		0AB07CC924D465F400B51630 /* JITAIHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JITAIHealth.entitlements; sourceTree = "<group>"; };
 		0AB07CCB24D465F400B51630 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "JITAIHealth WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 				0A09048524D459EF001FBDAA /* AppDelegate.swift */,
 				0A09048724D459EF001FBDAA /* SceneDelegate.swift */,
 				0A09048924D459EF001FBDAA /* ViewController.swift */,
+				0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */,
+				0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */,
 				0A09048B24D459EF001FBDAA /* Main.storyboard */,
 				0A09048E24D459F2001FBDAA /* Assets.xcassets */,
 				0A09049024D459F2001FBDAA /* LaunchScreen.storyboard */,
@@ -448,6 +454,8 @@
 			files = (
 				0A09048A24D459EF001FBDAA /* ViewController.swift in Sources */,
 				0A09048624D459EF001FBDAA /* AppDelegate.swift in Sources */,
+				0A2F8C8A24ED89A4002FFCDF /* NotificationManager.swift in Sources */,
+				0A2F8C8824ED74D1002FFCDF /* GeoLocationManager.swift in Sources */,
 				0A09048824D459EF001FBDAA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,12 +7,13 @@
 
 import UIKit
 import WatchConnectivity
+import UserNotifications
 
 class Cell: UITableViewCell {
     var tf = UITextField()
 }
 
-class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, GeoLocationDelegate {
     
     // MARK: -  Initialization
     
@@ -28,16 +29,21 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
     let tableView = UITableView()
     
     var dataSource = [String]()
+    
+    var previousActivity = -4.0
+    
+    var geoManager = GeoLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         tagButton.isHidden = true
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: "Cell")
+        
+        geoManager.delegate = self
         
         dataSource = ["Home", "Work", "Gym", "Other"]
         
@@ -109,24 +115,43 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
         
         // Below is main case to display watch message.
         
+        var activityTitle = ""
+        
         DispatchQueue.main.async {
             switch recievedData[0] {
             case 0.0:
                 print("sitting")
-                self.activityLabel.text = "sitting"
+                activityTitle = "sitting"
+                
             case 1.0:
                 print("walking")
-                self.activityLabel.text = "walking"
+                activityTitle = "walking"
             default:
                 print("unknown")
-                self.activityLabel.text = "unknown"
+                activityTitle = "unknown"
             }
+            
+            self.activityLabel.text = activityTitle
             
             print(recievedData[1])
             
+            
+            if (recievedData[0] != self.previousActivity) {
+                
+                self.toggleLocationUpdates(activity: activityTitle)
+                self.previousActivity = recievedData[0]
+            }
+            
             self.hrLabel.text = "HR: \(recievedData[1]) ❤️"
         }
+        
 
+    }
+    
+    // This method calls the manager's reference to toggle location updates.
+    
+    func toggleLocationUpdates(activity: String) {
+        geoManager.toggleLocationUpdates(activity: activity)
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {
