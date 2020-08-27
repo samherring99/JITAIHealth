@@ -11,6 +11,8 @@ protocol SedentaryDataDelegate: class {
     func toggleSedentaryTimer(activity: String)
 }
 
+// This sedentary inference manager simply starts a timer when the user's activity is "sitting" and sends a nudge notification at 30 minutes of stationary activity.
+
 class SedentaryDataManager: NSObject, SedentaryDataDelegate {
     
     var delegate: SedentaryDataDelegate?
@@ -49,15 +51,15 @@ extension SedentaryDataManager {
         // fire timer
         self.secondsTime += 1
         
-        print(self.secondsTime)
+        //print(self.secondsTime)
         
         if self.secondsTime % 60 == 0 {
             
             self.elapsedMinutes += 1
             
-            if (self.elapsedMinutes == 5) {
+            if (self.elapsedMinutes == 30) {
                 timer?.invalidate()
-                InterfaceController.vm.notifManager.pushNotificationToWatch()
+                InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "sitting")
             }
             
         }

@@ -83,6 +83,8 @@ class WorkoutManager: MotionManagerDelegate {
             return
         }
 
+        motionManager.stopUpdates()
+        
         // Stop the device motion updates and workout session.
         session!.end()
 

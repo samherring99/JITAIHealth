@@ -75,6 +75,10 @@ class MotionManager {
         }
         
     }
+    
+    func stopUpdates() {
+        motionActivityManager.stopActivityUpdates()
+    }
 
     // MARK: Data and Delegate Management
     

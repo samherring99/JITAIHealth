@@ -17,6 +17,11 @@
                                 <segue destination="vUX-QB-2XS" kind="modal" identifier="displayTags" id="Tjt-LC-ov2"/>
                             </connections>
                         </button>
+                        <button width="1" alignment="left" title="Stop Extended Session" id="1ce-Nu-4yE">
+                            <connections>
+                                <action selector="stopExtendedSession" destination="AgC-eL-Hgc" id="3Sd-5L-2KM"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="activityLabel" destination="V3E-lC-YEk" id="MWq-Bx-olg"/>
