@@ -12,7 +12,6 @@ protocol GeoLocationDelegate: class {
     func toggleLocationUpdates(activity: String)
 }
 
-
 class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelegate
 {
     
@@ -22,8 +21,6 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
     var nudgeOutcome:Bool
     
     var delegate: GeoLocationDelegate?
-    
-    var notifManager = NotificationManager()
     
     override init()
     {
@@ -62,7 +59,6 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
             if !self.nudgeOutcome
             {
                 computeNudge(currentActivity: "walking", threshold: 200)
-                
             }
             
         }
@@ -88,7 +84,7 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         let distance = self.currentLocation?.distance(from: self.newLocation!)
         if Int(distance!) >= threshold
         {
-            notifManager.pushNotificationToWatch()
+            InterfaceController.vm.notifManager.pushNotificationToWatch()
             print(distance)
             self.nudgeOutcome = true
             

@@ -11,11 +11,17 @@ import WatchConnectivity
 
 // This is the main view controller for the Watch interface.
 
-class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutManagerDelegate, WKExtendedRuntimeSessionDelegate, ViewModelDelegate {
+class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutManagerDelegate, WKExtendedRuntimeSessionDelegate, ViewModelDelegate, GeoLocationDelegate, SedentaryDataDelegate {
+    
     
     // MARK: - Initialization
     
     @IBOutlet var activityLabel: WKInterfaceLabel!
+    
+    var geoManager = GeoLocationManager()
+    var sedManager = SedentaryDataManager()
+    
+    var previousActivity = -2.0
     
     let workoutManager = WorkoutManager() // Instance of a WorkoutManager to start workouts and motion
     var active = false // boolean indicating application active status
@@ -34,6 +40,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         session.delegate = self
         workoutManager.delegate = self
         extSession.delegate = self
+        geoManager.delegate = self
+        sedManager.delegate = self
         InterfaceController.vm.delegate = self
         toggleSession()
         session.activate()
@@ -84,6 +92,19 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         let dataArray = [activity, hr] as [Double]
         let data = Data(fromArray: dataArray)
         self.activityLabel.setText(InterfaceController.vm.currentActivity)
+        
+        if (activity != previousActivity) {
+            if (activity == 1.0) {
+                self.toggleLocationUpdates(activity: "walking")
+                self.toggleSedentaryTimer(activity: "walking")
+            } else if (activity == 0.0) {
+                self.toggleLocationUpdates(activity: "sitting")
+                self.toggleSedentaryTimer(activity: "sitting")
+            }
+            
+            previousActivity = activity
+        }
+        
         self.session.sendMessageData(data, replyHandler: nil, errorHandler: nil)
     }
     
@@ -91,6 +112,14 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     func stopWorkoutUpdates() {
         workoutManager.stopWorkout()
+    }
+    
+    func toggleLocationUpdates(activity: String) {
+        geoManager.toggleLocationUpdates(activity: activity)
+    }
+    
+    func toggleSedentaryTimer(activity: String) {
+        sedManager.toggleSedentaryTimer(activity: activity)
     }
     
     // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.

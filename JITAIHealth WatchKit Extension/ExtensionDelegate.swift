@@ -119,7 +119,7 @@ extension ExtensionDelegate: UNUserNotificationCenterDelegate {
             print("Will present notification...")
 
             let categoryIdentifier = notification.request.content.categoryIdentifier
-            center.add(notification.request, withCompletionHandler: nil)
+            //center.add(notification.request, withCompletionHandler: nil)
 
         completionHandler([.banner, .badge, .sound])
             
