@@ -94,12 +94,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         self.activityLabel.setText(InterfaceController.vm.currentActivity)
         
         if (activity != previousActivity) {
-            if (activity == 1.0) {
-                self.toggleLocationUpdates(activity: "walking")
-                self.toggleSedentaryTimer(activity: "walking")
-            } else if (activity == 0.0) {
+            
+            if (activity == 0.0) {
                 self.toggleLocationUpdates(activity: "sitting")
                 self.toggleSedentaryTimer(activity: "sitting")
+            } else if (activity == 1.0) {
+                self.toggleLocationUpdates(activity: "walking")
+                self.toggleLocationUpdates(activity: "walking")
             }
             
             previousActivity = activity
@@ -128,7 +129,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         let locationName = [tag : ""] as [String : Any] // Change this later with more data?
         self.session.sendMessage(locationName, replyHandler: nil, errorHandler: nil)
     }
-
+    
+    @IBAction func stopExtendedSession() {
+        InterfaceController.vm.stopWorkoutUpdates()
+        self.extSession.invalidate()
+        self.activityLabel.setText("quit app now")
+    }
+    
     // MARK: - Extended Runtime
     
     func extendedRuntimeSession(_ extendedRuntimeSession: WKExtendedRuntimeSession, didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason, error: Error?) {

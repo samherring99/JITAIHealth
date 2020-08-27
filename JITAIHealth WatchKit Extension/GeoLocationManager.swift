@@ -84,7 +84,7 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         let distance = self.currentLocation?.distance(from: self.newLocation!)
         if Int(distance!) >= threshold
         {
-            InterfaceController.vm.notifManager.pushNotificationToWatch()
+            InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "walking")
             print(distance)
             self.nudgeOutcome = true
             
