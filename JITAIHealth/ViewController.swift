@@ -13,7 +13,7 @@ class Cell: UITableViewCell {
     var tf = UITextField()
 }
 
-class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, GeoLocationDelegate {
+class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
     
     // MARK: -  Initialization
     
@@ -32,7 +32,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     
     var previousActivity = -4.0
     
-    var geoManager = GeoLocationManager()
+    //var geoManager = GeoLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: "Cell")
         
-        geoManager.delegate = self
+        //geoManager.delegate = self
         
         dataSource = ["Home", "Work", "Gym", "Other"]
         
@@ -138,7 +138,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             
             if (recievedData[0] != self.previousActivity) {
                 
-                self.toggleLocationUpdates(activity: activityTitle)
+                //self.toggleLocationUpdates(activity: activityTitle)
                 self.previousActivity = recievedData[0]
             }
             
@@ -149,10 +149,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     
     // This method calls the manager's reference to toggle location updates.
-    
-    func toggleLocationUpdates(activity: String) {
-        geoManager.toggleLocationUpdates(activity: activity)
-    }
     
     func sessionDidBecomeInactive(_ session: WCSession) {
         // Session is connected but not active in watch.

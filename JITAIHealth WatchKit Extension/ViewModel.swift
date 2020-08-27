@@ -18,6 +18,8 @@ class ViewModel: ObservableObject {
     
     var delegate: ViewModelDelegate?
     
+    var notifManager = NotificationManager()
+    
     var currentActivity: String?
     
     func stopWorkoutUpdates() {

@@ -17,6 +17,8 @@ class NotificationManager: NSObject  {
         super.init()
     }
     
+    
+    
     // The below method creates and adds a test notification.
     
     func pushNotificationToWatch() {
@@ -31,5 +33,7 @@ class NotificationManager: NSObject  {
         let request = UNNotificationRequest(identifier: "test", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
     }
 }

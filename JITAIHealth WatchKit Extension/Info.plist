@@ -52,5 +52,9 @@
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<false/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Can JITAIHealth use your location data?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Can we process your location data?</string>
 </dict>
 </plist>
