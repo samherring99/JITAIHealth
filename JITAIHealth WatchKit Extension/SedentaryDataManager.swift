@@ -20,6 +20,8 @@ class SedentaryDataManager: NSObject, SedentaryDataDelegate {
     var elapsedMinutes: Int = 0
     var secondsTime: Int = 0
     
+    var isSedentary = false
+    
     override init()
     {
         super.init()
@@ -30,38 +32,40 @@ class SedentaryDataManager: NSObject, SedentaryDataDelegate {
         if (activity == "sitting") {
             // timer = 0, start
             print("creating timer")
+            isSedentary = true
             
-            secondsTime = 0
-            elapsedMinutes = 0
+            //elapsedMinutes = 0
             
             DispatchQueue.main.async {
-                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+                self.timer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: false)
             }
         } else {
+            isSedentary = false
             print("stopping timer")
             timer?.invalidate()
+            //self.timer = nil
         }
         
     }
 
 }
 
+// remove all below code, change firing to 10 min intervals.
+
 extension SedentaryDataManager {
-    @objc func updateTimer() {
+    @objc func calculateNudge() {
         // fire timer
-        self.secondsTime += 1
         
-        //print(self.secondsTime)
+        //self.elapsedMinutes += 1
         
-        if self.secondsTime % 60 == 0 {
-            
-            self.elapsedMinutes += 1
-            
-            if (self.elapsedMinutes == 30) {
-                timer?.invalidate()
-                InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "sitting")
-            }
-            
+        //print(self.elapsedMinutes)
+        
+        if (!isSedentary) {
+            timer?.invalidate()
+            //elapsedMinutes = 0
+        } else {
+            print("fire")
+            InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "sitting")
         }
     }
 }

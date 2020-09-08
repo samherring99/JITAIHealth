@@ -59,10 +59,17 @@ class MotionManager {
                 InterfaceController.vm.currentActivity = "walking"
                 prediction = 1.0
             }
+            
             if (activity?.stationary)! {
                 //print("User is sitting")
-                InterfaceController.vm.currentActivity = "sitting"
-                prediction = 0.0
+                
+                if (activity?.automotive)! {
+                    InterfaceController.vm.currentActivity = "unknown"
+                    prediction = -1.0
+                } else {
+                    InterfaceController.vm.currentActivity = "sitting"
+                    prediction = 0.0
+                }
             }
             if (activity?.unknown)! {
                 //print("Unknown activity")

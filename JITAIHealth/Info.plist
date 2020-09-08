@@ -64,5 +64,7 @@
 	<string>Can we use your location always?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Can we use your locaiton in app?</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Can we use the times of events in your calendar?</string>
 </dict>
 </plist>

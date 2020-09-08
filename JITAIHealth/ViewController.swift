@@ -30,6 +30,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
     
     var dataSource = [String]()
     
+    var eventManager = EventManager()
+    
     var previousActivity = -4.0
     
     //var geoManager = GeoLocationManager()
@@ -92,8 +94,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate {
             self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: 2.0 * frames.width, height: 0)
         } completion: { (nil) in }
     }
-    
-    
     
     // MARK: - WCSession code
     

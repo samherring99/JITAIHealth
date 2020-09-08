@@ -32,7 +32,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         center.setNotificationCategories([category])
     }
     
-    // The below method creates and pushes a notificationto the watch.
+    // The below method creates and pushes a notification to the watch.
     
     func pushNotificationToWatch(activity: String) {
         

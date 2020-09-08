@@ -97,12 +97,12 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         if currentActivity == "sitting"
         {
             self.locationManager.stopUpdatingLocation()
-            print("Stopping updates")
+            print("Stopping walking updates")
         }
         if currentActivity == "walking"
         {
             self.locationManager.startUpdatingLocation()
-            print("Starting updates")
+            print("Starting walking updates")
         }
     }
     

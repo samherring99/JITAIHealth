@@ -100,7 +100,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
                 self.toggleSedentaryTimer(activity: "sitting")
             } else if (activity == 1.0) {
                 self.toggleLocationUpdates(activity: "walking")
-                self.toggleLocationUpdates(activity: "walking")
+                self.toggleSedentaryTimer(activity: "walking")
             }
             
             previousActivity = activity
