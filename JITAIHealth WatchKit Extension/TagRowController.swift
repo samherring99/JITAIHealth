@@ -17,6 +17,7 @@ class TagRowController: NSObject {
       didSet {
         guard let location = location else { return }
         locationLabel.setText(location)
+        
       }
     }
 
