@@ -70,8 +70,14 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <textField width="136" alignment="left" text="Text" id="gAz-kh-dmB">
+                            <connections>
+                                <action selector="didEnter:" destination="vUX-QB-2XS" id="nLw-xn-RPn"/>
+                            </connections>
+                        </textField>
                     </items>
                     <connections>
+                        <outlet property="entryField" destination="gAz-kh-dmB" id="q0n-kW-Rvo"/>
                         <outlet property="table" destination="6F2-ua-wbl" id="rbO-1P-oeY"/>
                     </connections>
                 </controller>
