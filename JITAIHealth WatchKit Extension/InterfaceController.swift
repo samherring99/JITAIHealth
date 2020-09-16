@@ -126,7 +126,6 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.
     
     func sendTagToPhone(tag: String, loc: CLLocation?) {
-        let pair: (Double, Double) = (loc!.coordinate.latitude, loc!.coordinate.longitude)
         let pairString = String(loc!.coordinate.latitude) + " " + String(loc!.coordinate.longitude)
         let locationData = ["name" : tag, "location" : pairString] as [String : Any]
         self.session.sendMessage(locationData, replyHandler: nil, errorHandler: { error in

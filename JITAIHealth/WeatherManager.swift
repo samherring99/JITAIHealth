@@ -27,7 +27,9 @@ class WeatherManager: NSObject {
         
         //let weatherRequestURL = URL(string: "\(climacellBaseURL)?APPID=\(climacellAPIKey)&q=\(latitude),\(longitude)")
         
-        let weatherRequestURL = URL(string: "\(climacellRealtimeURL)?unit_system=si&fields=temp&apikey=\(climacellAPIKey)&lat=\(latitude)&lon=\(longitude)")
+        // 'fields' parameter isfound in documentation to get the correct data we need.
+        
+        let weatherRequestURL = URL(string: "\(climacellRealtimeURL)?unit_system=si&fields=temp,wind_speed&apikey=\(climacellAPIKey)&lat=\(latitude)&lon=\(longitude)")
         
         // The data task retrieves the data.
         let dataTask = session.dataTask(with: weatherRequestURL! as URL)

@@ -9,16 +9,13 @@ import WatchKit
 import Foundation
 
 
-class TagController: WKInterfaceController, GeoLocationDelegate {
+class TagController: WKInterfaceController {
 
     @IBOutlet var table: WKInterfaceTable!
     
     @IBOutlet var entryField: WKInterfaceTextField!
     
     var locationList: [String]!
-    
-    var delegate: GeoLocationDelegate?
-    
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -64,10 +61,6 @@ class TagController: WKInterfaceController, GeoLocationDelegate {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-    }
-    
-    func toggleLocationUpdates(activity: String) {
-        delegate?.toggleLocationUpdates(activity: activity)
     }
 
 }
