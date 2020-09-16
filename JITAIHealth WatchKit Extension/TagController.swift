@@ -9,13 +9,16 @@ import WatchKit
 import Foundation
 
 
-class TagController: WKInterfaceController {
+class TagController: WKInterfaceController, GeoLocationDelegate {
 
     @IBOutlet var table: WKInterfaceTable!
     
     @IBOutlet var entryField: WKInterfaceTextField!
     
     var locationList: [String]!
+    
+    var delegate: GeoLocationDelegate?
+    
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -43,7 +46,8 @@ class TagController: WKInterfaceController {
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         print("On Watch: " + locationList[rowIndex])
-        InterfaceController.vm.sendTagToPhone(tag: locationList[rowIndex])
+        let current: CLLocation? = InterfaceController.vm.fetchCurrentLocation()
+        InterfaceController.vm.sendTagToPhone(tag: locationList[rowIndex], loc: current)
         self.dismiss()
     }
     
@@ -60,6 +64,10 @@ class TagController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    func toggleLocationUpdates(activity: String) {
+        delegate?.toggleLocationUpdates(activity: activity)
     }
 
 }

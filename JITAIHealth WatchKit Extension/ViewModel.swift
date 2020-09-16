@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol ViewModelDelegate: class {
     func stopWorkoutUpdates()
-    func sendTagToPhone(tag: String)
+    func sendTagToPhone(tag: String, loc: CLLocation?)
+    func fetchCurrentLocation() -> CLLocation?
 }
 
 // The ViewModel class allows for the sharing of key data elements between the SwiftUI View and the Hosting Controller
@@ -26,7 +28,11 @@ class ViewModel: ObservableObject {
         delegate?.stopWorkoutUpdates()
     }
     
-    func sendTagToPhone(tag: String) {
-        delegate?.sendTagToPhone(tag: tag)
+    func sendTagToPhone(tag: String, loc: CLLocation?) {
+        delegate?.sendTagToPhone(tag: tag, loc: loc)
+    }
+    
+    func fetchCurrentLocation() -> CLLocation? {
+        return delegate?.fetchCurrentLocation()
     }
 }

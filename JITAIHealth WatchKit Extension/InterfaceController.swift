@@ -11,7 +11,7 @@ import WatchConnectivity
 
 // This is the main view controller for the Watch interface.
 
-class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutManagerDelegate, WKExtendedRuntimeSessionDelegate, ViewModelDelegate, GeoLocationDelegate, SedentaryDataDelegate {
+class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutManagerDelegate, WKExtendedRuntimeSessionDelegate, ViewModelDelegate, SedentaryDataDelegate, GeoLocationDelegate {
     
     
     // MARK: - Initialization
@@ -40,7 +40,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         session.delegate = self
         workoutManager.delegate = self
         extSession.delegate = self
-        geoManager.delegate = self
+        //geoManager.delegate = self
         sedManager.delegate = self
         InterfaceController.vm.delegate = self
         toggleSession()
@@ -125,9 +125,17 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.
     
-    func sendTagToPhone(tag: String) {
-        let locationName = [tag : ""] as [String : Any] // Change this later with more data?
-        self.session.sendMessage(locationName, replyHandler: nil, errorHandler: nil)
+    func sendTagToPhone(tag: String, loc: CLLocation?) {
+        let pair: (Double, Double) = (loc!.coordinate.latitude, loc!.coordinate.longitude)
+        let pairString = String(loc!.coordinate.latitude) + " " + String(loc!.coordinate.longitude)
+        let locationData = ["name" : tag, "location" : pairString] as [String : Any]
+        self.session.sendMessage(locationData, replyHandler: nil, errorHandler: { error in
+            print(error)
+        })
+    }
+    
+    func fetchCurrentLocation() -> CLLocation? {
+        return geoManager.fetchCurrentLocation()
     }
     
     @IBAction func stopExtendedSession() {
