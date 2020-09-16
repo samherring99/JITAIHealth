@@ -144,17 +144,8 @@ class WorkoutManager: MotionManagerDelegate {
             }
             
             // Update UI labels (does nothing right now)
-            updateHeartRateLabel()
+            //updateHeartRateLabel()
         }
-    }
-    
-    // Updates the HR data label in UI
-    
-    private func updateHeartRateLabel() {
-        let heartRate = String(Int(lastHeartRate))
-            //bpmLabel.setText(heartRate)
-        
-        //print("HR: " + heartRate)
     }
 
 }

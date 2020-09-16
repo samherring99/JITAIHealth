@@ -10,6 +10,7 @@ import CoreLocation
 
 protocol GeoLocationDelegate: class {
     func toggleLocationUpdates(activity: String)
+    //func fetchCurrentLocation() -> CLLocation?
 }
 
 class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelegate
@@ -31,6 +32,8 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         locationManager.delegate = self
         locationManager.requestLocation()
         locationManager.requestAlwaysAuthorization()
+        
+        delegate = self
         //locationManager.startUpdatingLocation()
         
     }
@@ -85,7 +88,7 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         if Int(distance!) >= threshold
         {
             InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "walking")
-            print(distance)
+            print(distance as Any)
             self.nudgeOutcome = true
             
         }
@@ -108,5 +111,13 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
     
     func toggleLocationUpdates(activity: String) {
         self.pauseLocationUpdates(currentActivity: activity)
+    }
+    
+    func fetchCurrentLocation() -> CLLocation? {
+        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
+        let cl: CLLocation? = locationManager.location
+        locationManager.stopUpdatingLocation()
+        return cl
     }
 }

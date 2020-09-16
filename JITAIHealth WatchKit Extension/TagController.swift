@@ -43,7 +43,8 @@ class TagController: WKInterfaceController {
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         print("On Watch: " + locationList[rowIndex])
-        InterfaceController.vm.sendTagToPhone(tag: locationList[rowIndex])
+        let current: CLLocation? = InterfaceController.vm.fetchCurrentLocation()
+        InterfaceController.vm.sendTagToPhone(tag: locationList[rowIndex], loc: current)
         self.dismiss()
     }
     

@@ -15,21 +15,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     
     override init() {
         super.init()
-        //registerCategories()
         UNUserNotificationCenter.current().delegate = self
-    }
-    
-    func registerCategories() {
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self
-
-        let confirm = UNNotificationAction(identifier: "confirm", title: "Yes, I am", options: .authenticationRequired)
-        
-        let deny = UNNotificationAction(identifier: "deny", title: "No, I am not", options: .destructive)
-        
-        let category = UNNotificationCategory(identifier: "nudge", actions: [confirm], intentIdentifiers: [])
-
-        center.setNotificationCategories([category])
     }
     
     // The below method creates and pushes a notification to the watch.

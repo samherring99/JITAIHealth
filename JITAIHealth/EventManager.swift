@@ -17,6 +17,8 @@ class EventManager: NSObject {
         authorize()
     }
     
+    // Authorize with the user to read event data, will only need to happen once as readEvents is called within, so it is called every time app is reinitialized.
+    
     func authorize() {
         
         print("Authorizing")
@@ -53,9 +55,9 @@ class EventManager: NSObject {
             let events = eventStore.events(matching: predicate)
             
             for event in events {
-                print(event.title)
-                print(event.startDate)
-                print(event.endDate)
+                print(event.title as Any)
+                print(event.startDate as Any)
+                print(event.endDate as Any)
             }
         }
     }
