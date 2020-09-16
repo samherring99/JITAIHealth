@@ -16,7 +16,6 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     @IBOutlet var hrLabel: UILabel!
     @IBOutlet var activityLabel: UILabel!
-    @IBOutlet var tagButton: UIButton!
     
     var session : WCSession? // WatchConnectivity Session
     
@@ -113,10 +112,6 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     func sessionDidDeactivate(_ session: WCSession) {
         // Session is disconnected from watch.
-    }
-
-    @IBAction func displayLocMenu(_ sender: Any) {
-        //addTransparentView(frames: tagButton.frame)
     }
     
 }
