@@ -16,7 +16,6 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     @IBOutlet var hrLabel: UILabel!
     @IBOutlet var activityLabel: UILabel!
-    @IBOutlet var tagButton: UIButton!
     
     var session : WCSession? // WatchConnectivity Session
     
@@ -60,8 +59,7 @@ class ViewController: UIViewController, WCSessionDelegate {
         print(locationString)
         let latLong: [Substring] = locationString.split(separator: " ")
         
-        let recievedData: [String : Any] = weatherManager.fetchWeatherData(latitude: Double(latLong[0])!, longitude: Double(latLong[1])!)
-        print(recievedData)
+        // save latLong string to userData here^
     }
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
@@ -95,11 +93,18 @@ class ViewController: UIViewController, WCSessionDelegate {
             
             if (recievedData[0] != self.previousActivity) {
                 
-                //self.toggleLocationUpdates(activity: activityTitle)
+                if recievedData[2] != -1.0 && recievedData[3] != -1.0 {
+                    
+                    let weatherData: [String : Any] = self.weatherManager.fetchWeatherData(latitude: Double(recievedData[2]), longitude: Double(recievedData[3]))
+                    print(weatherData)
+                    
+                }
+                
                 self.previousActivity = recievedData[0]
             }
             
             self.hrLabel.text = "HR: \(recievedData[1]) ❤️"
+            
         }
         
 
@@ -113,10 +118,6 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     func sessionDidDeactivate(_ session: WCSession) {
         // Session is disconnected from watch.
-    }
-
-    @IBAction func displayLocMenu(_ sender: Any) {
-        //addTransparentView(frames: tagButton.frame)
     }
     
 }

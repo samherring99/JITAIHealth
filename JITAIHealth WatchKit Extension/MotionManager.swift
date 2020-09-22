@@ -21,7 +21,7 @@ protocol MotionManagerDelegate: class {
 class MotionManager {
     // MARK: Properties
     
-    let motionActivityManager = CMMotionActivityManager() // TESTING
+    let motionActivityManager = CMMotionActivityManager()
     let queue = OperationQueue()
     let wristLocationIsLeft = WKInterfaceDevice.current().wristLocation == .left
 
@@ -30,6 +30,8 @@ class MotionManager {
     weak var delegate: MotionManagerDelegate?
 
     var recentDetection = false
+    
+    var previousDetection = -2.0
 
     // MARK: Initialization
     
@@ -60,24 +62,33 @@ class MotionManager {
                 prediction = 1.0
             }
             
+            //Check driving for fall through
+            
+            if (activity?.automotive)! {
+                InterfaceController.vm.currentActivity = "driving"
+                prediction = -1.0
+            }
+            
             if (activity?.stationary)! {
                 //print("User is sitting")
                 
-                if (activity?.automotive)! {
-                    InterfaceController.vm.currentActivity = "unknown"
-                    prediction = -1.0
-                } else {
-                    InterfaceController.vm.currentActivity = "sitting"
-                    prediction = 0.0
-                }
+                InterfaceController.vm.currentActivity = "sitting"
+                prediction = 0.0
+                
             }
+            
             if (activity?.unknown)! {
                 //print("Unknown activity")
                 InterfaceController.vm.currentActivity = "unknown"
                 prediction = -1.0
             }
             
-            self.sendDatatoDelegate(activity: prediction)
+            if prediction != self.previousDetection {
+                self.sendDatatoDelegate(activity: prediction)
+                self.previousDetection = prediction
+            }
+            
+            
             
         }
         

@@ -46,6 +46,7 @@ class WorkoutManager: MotionManagerDelegate {
                         self.startHeartRateQuery(quantityTypeIdentifier: .heartRate)
                     }
                 })
+        
     }
 
     // MARK: WorkoutManager

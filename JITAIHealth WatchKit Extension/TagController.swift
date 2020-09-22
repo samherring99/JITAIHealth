@@ -43,14 +43,21 @@ class TagController: WKInterfaceController {
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         print("On Watch: " + locationList[rowIndex])
-        let current: CLLocation? = InterfaceController.vm.fetchCurrentLocation()
-        InterfaceController.vm.sendTagToPhone(tag: locationList[rowIndex], loc: current)
+        fetchAndTagLocation(title: locationList[rowIndex])
         self.dismiss()
     }
     
+    
+    // Custom tag entered
     @IBAction func didEnter(_ value: NSString?) {
         print(value!)
+        fetchAndTagLocation(title: value! as String)
         self.dismiss()
+    }
+    
+    func fetchAndTagLocation(title: String)  {
+        let current: CLLocation? = InterfaceController.vm.fetchCurrentLocation()
+        InterfaceController.vm.sendTagToPhone(tag: title, loc: current)
     }
     
     override func willActivate() {

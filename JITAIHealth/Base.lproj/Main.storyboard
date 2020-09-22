@@ -31,15 +31,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d7N-Ii-XcC">
-                                <rect key="frame" x="164" y="206" width="86" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Tag"/>
-                                <connections>
-                                    <action selector="displayLocMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hLk-D4-Ri3"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -47,7 +38,6 @@
                     <connections>
                         <outlet property="activityLabel" destination="c9R-DK-7BW" id="ZUc-hd-Gjm"/>
                         <outlet property="hrLabel" destination="9Ks-2O-hht" id="PXa-uJ-Xt5"/>
-                        <outlet property="tagButton" destination="d7N-Ii-XcC" id="lgV-4g-kNF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
