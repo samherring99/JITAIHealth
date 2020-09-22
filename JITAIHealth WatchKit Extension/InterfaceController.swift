@@ -89,7 +89,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     // This method is called in MotionManager to send activity data when updates happen.
     
     func updateDataInController(_ manager: MotionManager, activity: Double, hr: Double) {
-        let dataArray = [activity, hr] as [Double]
+        let currentLocation = InterfaceController.vm.fetchCurrentLocation()
+        let dataArray = [activity, hr, Double(currentLocation?.coordinate.latitude ?? -1.0), Double(currentLocation?.coordinate.longitude ?? -1.0)] as [Double]
         let data = Data(fromArray: dataArray)
         self.activityLabel.setText(InterfaceController.vm.currentActivity)
         

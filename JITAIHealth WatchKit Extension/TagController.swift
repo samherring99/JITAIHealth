@@ -47,6 +47,8 @@ class TagController: WKInterfaceController {
         self.dismiss()
     }
     
+    
+    // Custom tag entered
     @IBAction func didEnter(_ value: NSString?) {
         print(value!)
         fetchAndTagLocation(title: value! as String)

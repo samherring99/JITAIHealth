@@ -22,6 +22,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     
     func pushNotificationToWatch(activity: String) {
         
+        print("called~")
+        
         let content = UNMutableNotificationContent()
         //UNNotificationAction
         content.title = "Hey there..."
@@ -29,7 +31,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         if activity == "sitting" { content.subtitle = "You should stand up!" } else { content.subtitle = "Let's make it a longer walk!" }
         
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound.defaultCritical
         content.categoryIdentifier = "nudge"
         content.userInfo["customData"] = "test data"
         

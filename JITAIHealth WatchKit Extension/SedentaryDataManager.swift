@@ -35,13 +35,13 @@ class SedentaryDataManager: NSObject, SedentaryDataDelegate {
             isSedentary = true
             
             DispatchQueue.main.async {
-                self.timer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: false)
+                self.timer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: true)
+                // Repeating timer every 30 min? 
             }
         } else {
             isSedentary = false
             print("stopping timer")
             timer?.invalidate()
-            //self.timer = nil
         }
         
     }
