@@ -27,6 +27,8 @@
 		0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */; };
 		0A0FAC5724FE9D6D006898A5 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0FAC5624FE9D6D006898A5 /* EventManager.swift */; };
 		0A0FAC5925129050006898A5 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0FAC5825129050006898A5 /* WeatherManager.swift */; };
+		0A2E86DA251BF8830035C2A9 /* DailyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E86D9251BF8830035C2A9 /* DailyController.swift */; };
+		0A2E86E1251BF8A10035C2A9 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E86E0251BF8A10035C2A9 /* BackgroundManager.swift */; };
 		0A2F8C8424EC4D69002FFCDF /* TagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8324EC4D69002FFCDF /* TagController.swift */; };
 		0A2F8C8624EC4FF1002FFCDF /* TagRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */; };
 		0A2F8C8B24F3FC70002FFCDF /* GeoLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */; };
@@ -123,6 +125,8 @@
 		0A0904DF24D45ABC001FBDAA /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		0A0FAC5624FE9D6D006898A5 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		0A0FAC5825129050006898A5 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		0A2E86D9251BF8830035C2A9 /* DailyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyController.swift; sourceTree = "<group>"; };
+		0A2E86E0251BF8A10035C2A9 /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
 		0A2F8C8324EC4D69002FFCDF /* TagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagController.swift; sourceTree = "<group>"; };
 		0A2F8C8524EC4FF1002FFCDF /* TagRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRowController.swift; sourceTree = "<group>"; };
 		0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationManager.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				0A09048724D459EF001FBDAA /* SceneDelegate.swift */,
 				0A09048924D459EF001FBDAA /* ViewController.swift */,
 				0A0FAC5825129050006898A5 /* WeatherManager.swift */,
+				0A2E86E0251BF8A10035C2A9 /* BackgroundManager.swift */,
 				0A0FAC5624FE9D6D006898A5 /* EventManager.swift */,
 				0A09048B24D459EF001FBDAA /* Main.storyboard */,
 				0A09048E24D459F2001FBDAA /* Assets.xcassets */,
@@ -245,6 +250,7 @@
 				0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */,
 				0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */,
 				0A2F8C8D24F6B881002FFCDF /* SedentaryDataManager.swift */,
+				0A2E86D9251BF8830035C2A9 /* DailyController.swift */,
 				0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */,
 				0A0904C024D459F3001FBDAA /* InterfaceController.swift */,
 				0A2F8C8324EC4D69002FFCDF /* TagController.swift */,
@@ -464,6 +470,7 @@
 				0A09048A24D459EF001FBDAA /* ViewController.swift in Sources */,
 				0A09048624D459EF001FBDAA /* AppDelegate.swift in Sources */,
 				0A0FAC5925129050006898A5 /* WeatherManager.swift in Sources */,
+				0A2E86E1251BF8A10035C2A9 /* BackgroundManager.swift in Sources */,
 				0A0FAC5724FE9D6D006898A5 /* EventManager.swift in Sources */,
 				0A09048824D459EF001FBDAA /* SceneDelegate.swift in Sources */,
 			);
@@ -500,6 +507,7 @@
 				0A2F8C8E24F6B881002FFCDF /* SedentaryDataManager.swift in Sources */,
 				0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */,
 				0A0904DE24D45A2C001FBDAA /* MotionManager.swift in Sources */,
+				0A2E86DA251BF8830035C2A9 /* DailyController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

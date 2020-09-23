@@ -96,6 +96,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         
         if (activity != previousActivity) {
             
+            print(geoManager.isWithinRadiusOfTag(radius: 10.0))
+            
             if (activity == 0.0) {
                 self.toggleLocationUpdates(activity: "sitting")
                 self.toggleSedentaryTimer(activity: "sitting")

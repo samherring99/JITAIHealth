@@ -24,6 +24,8 @@ class ViewModel: ObservableObject {
     
     var currentActivity: String?
     
+    var lastResponse: String?
+    
     func stopWorkoutUpdates() {
         delegate?.stopWorkoutUpdates()
     }

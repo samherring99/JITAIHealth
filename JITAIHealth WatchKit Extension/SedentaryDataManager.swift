@@ -20,6 +20,8 @@ class SedentaryDataManager: NSObject, SedentaryDataDelegate {
     var elapsedMinutes: Int = 0
     var secondsTime: Int = 0
     
+    var didFollow = false
+    
     var isSedentary = false
     
     override init()
@@ -55,6 +57,35 @@ extension SedentaryDataManager {
             timer?.invalidate()
         } else {
             InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "sitting")
+            waitWithTimeForWalk(minutes: 10)
         }
     }
+    
+    func waitWithTimeForWalk(minutes: Int) {
+        print("waiting")
+        var seconds = 0
+        DispatchQueue.main.async {
+            let afterTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (t) in
+                
+                seconds += 10
+                
+                print(seconds)
+                
+                if (InterfaceController.vm.currentActivity == "walking") {
+                    self.didFollow = true
+                    seconds = 0
+                    t.invalidate()
+                }
+                
+                if (seconds == minutes*60)  {
+                    self.didFollow = false
+                    seconds = 0
+                    t.invalidate()
+                    print("Failed")
+                }
+                
+            }
+        }
+    }
+    
 }

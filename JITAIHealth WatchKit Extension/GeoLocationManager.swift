@@ -95,6 +95,10 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         
     }
     
+    func afterDetection() {
+        
+    }
+    
     func pauseLocationUpdates(currentActivity: String)
     {
         if currentActivity == "sitting"
@@ -117,7 +121,57 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         locationManager.startUpdatingLocation()
         locationManager.requestLocation()
         let cl: CLLocation? = locationManager.location
+        currentLocation = cl
         locationManager.stopUpdatingLocation()
         return cl
+    }
+    
+    // This method checks to see if the user is within a certain radius of any tags, returns them in a list if yes, returns nil if user is in no tag radius distances.
+    
+    func isWithinRadiusOfTag(radius: Double) -> [String] {
+        
+        var actual: [String] = []
+        
+        if UserDefaults.standard.stringArray(forKey: "names") != nil {
+            var names: [String] = UserDefaults.standard.stringArray(forKey: "names")!
+            
+            names.append(contentsOf: ["Home", "Work", "Gym", "Park", "Grocery Store"])
+            
+            for i in 1...names.count - 1 {
+                
+                if UserDefaults.standard.stringArray(forKey: names[i] + "_lat") != nil &&
+                    UserDefaults.standard.stringArray(forKey: names[i] + "_long") != nil {
+                    
+                    let lats = UserDefaults.standard.stringArray(forKey: names[i] + "_lat")!
+                    let longs = UserDefaults.standard.stringArray(forKey: names[i] + "_long")!
+                    
+                    for a in 0...lats.count - 1 {
+                        
+                        if lats[a] != "" && lats[a] != "" {
+                            let lat = Float(lats[a])
+                            let long = Float(longs[a])
+                            
+                            let tagLocation = CLLocation(latitude: CLLocationDegrees(lat!), longitude: CLLocationDegrees(long!))
+                            
+                            let cl = fetchCurrentLocation()
+                            
+                            if cl != nil {
+                                let distance = cl!.distance(from: tagLocation)
+                                
+                                if (Double(distance) < radius) {
+                                    actual.append(names[i])
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                }
+            }
+        }
+        
+        return Array(Set(actual)) as [String]
     }
 }

@@ -24,6 +24,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         print("called~")
         
+        //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
         let content = UNMutableNotificationContent()
         //UNNotificationAction
         content.title = "Hey there..."
@@ -43,36 +45,38 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
 
         UNUserNotificationCenter.current().setNotificationCategories([category])
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "test", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "test", content: content, trigger: nil)
         
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-        //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) { (error) in
+            print(error)
+        }
         
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
         //user clicked a response
         
         let userInfo = response.notification.request.content.userInfo
 
             if let customData = userInfo["customData"] as? String {
                 print("Custom data received: \(customData)")
-
+                InterfaceController.vm.lastResponse = response.actionIdentifier
                 switch response.actionIdentifier {
                 case UNNotificationDefaultActionIdentifier:
                     print("Default identifier")
-                    
+                    break
                 case "confirm":
                     print("user confirmed")
-                    
+                    break
                 case "deny":
                     print("user denied")
-                    
+                    break
                 case UNNotificationDismissActionIdentifier:
                     print("user dismissed")
-                    
+                    break
                 default:
                     break
                 }
