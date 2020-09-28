@@ -118,11 +118,9 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
     }
     
     func fetchCurrentLocation() -> CLLocation? {
-        locationManager.startUpdatingLocation()
         locationManager.requestLocation()
         let cl: CLLocation? = locationManager.location
-        currentLocation = cl
-        locationManager.stopUpdatingLocation()
+        //currentLocation = cl
         return cl
     }
     

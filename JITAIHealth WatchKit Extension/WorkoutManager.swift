@@ -47,12 +47,17 @@ class WorkoutManager: MotionManagerDelegate {
                     }
                 })
         
+        motionManager.startUpdates()
+        
     }
 
     // MARK: WorkoutManager
     
     func startWorkout() {
         // If we have already started the workout, then do nothing.
+        
+        print("Starting Workout")
+        
         if (session != nil) {
             return
         }
@@ -74,7 +79,7 @@ class WorkoutManager: MotionManagerDelegate {
         // Start the workout session and device motion updates.
         
         session!.startActivity(with: Date.init()) // Start activity now
-        motionManager.startUpdates() // Start updates in MotionManager.
+        // Start updates in MotionManager.
     }
 
     func stopWorkout() {

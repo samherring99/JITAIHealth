@@ -114,7 +114,6 @@ class TagController: WKInterfaceController {
     
     func fetchAndTagLocation(title: String) -> CLLocation  {
         let current: CLLocation? = InterfaceController.vm.fetchCurrentLocation()
-        InterfaceController.vm.sendTagToPhone(tag: title, loc: current)
         return current!
     }
     

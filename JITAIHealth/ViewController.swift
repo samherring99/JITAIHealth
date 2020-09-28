@@ -81,17 +81,6 @@ class ViewController: UIViewController, WCSessionDelegate {
             case 1.0:
                 print("walking")
                 activityTitle = "walking"
-            default:
-                print("unknown")
-                activityTitle = "unknown"
-            }
-            
-            self.activityLabel.text = activityTitle
-            
-            print(recievedData[1])
-            
-            
-            if (recievedData[0] != self.previousActivity) {
                 
                 if recievedData[2] != -1.0 && recievedData[3] != -1.0 {
                     
@@ -100,8 +89,14 @@ class ViewController: UIViewController, WCSessionDelegate {
                     
                 }
                 
-                self.previousActivity = recievedData[0]
+            default:
+                print("unknown")
+                activityTitle = "unknown"
             }
+            
+            self.activityLabel.text = activityTitle
+            
+            print(recievedData[1])
             
             self.hrLabel.text = "HR: \(recievedData[1]) ❤️"
             
