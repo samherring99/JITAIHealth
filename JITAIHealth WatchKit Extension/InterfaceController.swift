@@ -33,6 +33,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     var session = WCSession.default
     var extSession = WKExtendedRuntimeSession() // Extended runtime session instance
+    
+    var sessionTimer: Timer?
 
     override func awake(withContext context: Any?) {
         // Configure interface objects here. This method is called when the application is opened.
@@ -45,6 +47,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         InterfaceController.vm.delegate = self
         toggleSession()
         session.activate()
+        print(extSession.state.rawValue)
     }
     
     // MARK: - Session code
@@ -78,6 +81,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         // This method is called when watch view controller is about to be visible to user
         //print("Open")
         active = true
+        
     }
     
     override func didDeactivate() {
@@ -90,24 +94,33 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     func updateDataInController(_ manager: MotionManager, activity: Double, hr: Double) {
         let currentLocation = InterfaceController.vm.fetchCurrentLocation()
+        
+        // Send data array of Doubles with activity float, heart rate, location latitute and location longitude
+        
         let dataArray = [activity, hr, Double(currentLocation?.coordinate.latitude ?? -1.0), Double(currentLocation?.coordinate.longitude ?? -1.0)] as [Double]
         let data = Data(fromArray: dataArray)
+        
         self.activityLabel.setText(InterfaceController.vm.currentActivity)
         
-        if (activity != previousActivity) {
-            
-            print(geoManager.isWithinRadiusOfTag(radius: 10.0))
-            
-            if (activity == 0.0) {
-                self.toggleLocationUpdates(activity: "sitting")
-                self.toggleSedentaryTimer(activity: "sitting")
-            } else if (activity == 1.0) {
-                self.toggleLocationUpdates(activity: "walking")
-                self.toggleSedentaryTimer(activity: "walking")
-            }
-            
-            previousActivity = activity
+        // send currentLocation ->  (lat, long) + "START or END"
+        
+        if (activity == 0.0) {
+            InterfaceController.vm.startExtendedSession()
+            //self.workoutManager.stopWorkout()
+            //self.extSession.start()
+            print("Ending at ")
+            print(fetchCurrentLocation()?.coordinate)
+        } else if (activity == 1.0) {
+            //self.workoutManager.startWorkout()
+            print("Starting at ")
+            print(fetchCurrentLocation()?.coordinate)
+            self.extSession.invalidate()
+            self.sessionTimer = nil
         }
+        
+        self.toggleSedentaryTimer(activity: InterfaceController.vm.currentActivity ?? "")
+        
+        self.toggleLocationUpdates(activity: InterfaceController.vm.currentActivity ?? "")
         
         self.session.sendMessageData(data, replyHandler: nil, errorHandler: nil)
     }
@@ -126,12 +139,27 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         sedManager.toggleSedentaryTimer(activity: activity)
     }
     
+    func startExtendedSession() {
+        
+        print(extSession.state.rawValue)
+        
+        if extSession.state.rawValue == 0 {
+            extSession.start()
+        }
+        
+    }
+    
     // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.
     
-    func sendTagToPhone(tag: String, loc: CLLocation?) {
-        let pairString = String(loc!.coordinate.latitude) + " " + String(loc!.coordinate.longitude)
-        let locationData = ["name" : tag, "location" : pairString] as [String : Any]
-        self.session.sendMessage(locationData, replyHandler: nil, errorHandler: { error in
+    func sendMessageToPhone(tag: String, loc: CLLocation?) {
+        
+        let tags: [String] = geoManager.isWithinRadiusOfTag(radius: 100.0)
+        
+        if InterfaceController.vm.lastResponse != nil { }
+        
+        let dataArray = ["tags" : tags] as [String : Any]
+        
+        self.session.sendMessage(dataArray, replyHandler: nil, errorHandler: { error in
             print(error)
         })
     }
@@ -149,17 +177,30 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     // MARK: - Extended Runtime
     
     func extendedRuntimeSession(_ extendedRuntimeSession: WKExtendedRuntimeSession, didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason, error: Error?) {
-        // Extended runtime session code loop
+        
+        print(reason)
+        
     }
     
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         print("Started extended session")
         // Indicates the extended runtime has started.
+        
+//        DispatchQueue.main.async {
+//            self.sessionTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (t) in
+//                self.toggleSedentaryTimer(activity: InterfaceController.vm.currentActivity ?? "")
+//            }
+//        }
+        
     }
     
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         // Indicates the end of the extended runtime sesssion.
+        print("Extended session ended")
+        self.sessionTimer = nil
     }
+    
+    
 
 }
 

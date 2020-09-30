@@ -90,6 +90,11 @@ class MotionManager {
             
             
             
+            
+            // Send message activity
+            
+            
+            
         }
         
     }

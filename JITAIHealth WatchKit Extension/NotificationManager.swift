@@ -13,6 +13,12 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     
     // This class currently handles all notification pushing for the application and extension.
     
+    var secondsElapsed = 0
+    
+    var secondsTimer: Timer?
+    
+    var nudgeType = ""
+    
     override init() {
         super.init()
         UNUserNotificationCenter.current().delegate = self
@@ -25,6 +31,10 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         print("called~")
         
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        nudgeType = activity
+        
+        secondsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (t) in self.secondsElapsed += 1 }
         
         let content = UNMutableNotificationContent()
         //UNNotificationAction
@@ -45,9 +55,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
 
         UNUserNotificationCenter.current().setNotificationCategories([category])
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "test", content: content, trigger: nil)
+        let request = UNNotificationRequest(identifier: "nudgeRequest", content: content, trigger: nil)
         
         UNUserNotificationCenter.current().add(request) { (error) in
             print(error)
@@ -58,6 +68,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         //user clicked a response
+        
+        secondsTimer?.invalidate()
         
         let userInfo = response.notification.request.content.userInfo
 
@@ -81,5 +93,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
                     break
                 }
             }
+        
+        print(nudgeType)
+        print(secondsElapsed)
+        print(response.actionIdentifier)
+        
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
+    
+    
 }

@@ -33,16 +33,19 @@ class SedentaryDataManager: NSObject, SedentaryDataDelegate {
         
         if (activity == "sitting") {
             // timer = 0, start
-            print("creating timer")
             isSedentary = true
             
             DispatchQueue.main.async {
-                self.timer = Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: true)
+                
+                if (self.timer == nil) {
+                    print("creating timer")
+                    self.timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: false)
+                }
                 // Repeating timer every 30 min? 
             }
         } else {
             isSedentary = false
-            print("stopping timer")
+            print("not sitting")
             timer?.invalidate()
         }
         
@@ -75,6 +78,7 @@ extension SedentaryDataManager {
                     self.didFollow = true
                     seconds = 0
                     t.invalidate()
+                    self.timer = nil
                 }
                 
                 if (seconds == minutes*60)  {
@@ -82,6 +86,7 @@ extension SedentaryDataManager {
                     seconds = 0
                     t.invalidate()
                     print("Failed")
+                    self.timer = nil
                 }
                 
             }

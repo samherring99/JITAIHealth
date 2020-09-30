@@ -8,5 +8,7 @@
 import UIKit
 
 class DailyController: NSObject {
+    
+    // Manage sends to datafile here?
 
 }

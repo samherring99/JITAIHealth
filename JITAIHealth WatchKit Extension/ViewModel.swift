@@ -10,7 +10,8 @@ import CoreLocation
 
 protocol ViewModelDelegate: class {
     func stopWorkoutUpdates()
-    func sendTagToPhone(tag: String, loc: CLLocation?)
+    func startExtendedSession()
+    func sendMessageToPhone(tag: String, loc: CLLocation?)
     func fetchCurrentLocation() -> CLLocation?
 }
 
@@ -30,8 +31,12 @@ class ViewModel: ObservableObject {
         delegate?.stopWorkoutUpdates()
     }
     
-    func sendTagToPhone(tag: String, loc: CLLocation?) {
-        delegate?.sendTagToPhone(tag: tag, loc: loc)
+    func startExtendedSession() {
+        delegate?.startExtendedSession()
+    }
+    
+    func sendMessageToPhone(tag: String, loc: CLLocation?) {
+        delegate?.sendMessageToPhone(tag: tag, loc: loc)
     }
     
     func fetchCurrentLocation() -> CLLocation? {
