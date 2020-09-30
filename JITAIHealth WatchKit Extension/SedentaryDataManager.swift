@@ -39,7 +39,7 @@ class SedentaryDataManager: NSObject, SedentaryDataDelegate {
                 
                 if (self.timer == nil) {
                     print("creating timer")
-                    self.timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: false)
+                    self.timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.calculateNudge), userInfo: nil, repeats: false)
                 }
                 // Repeating timer every 30 min? 
             }

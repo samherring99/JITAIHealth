@@ -45,7 +45,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         //geoManager.delegate = self
         sedManager.delegate = self
         InterfaceController.vm.delegate = self
-        //toggleSession()
+        toggleSession()
         session.activate()
         print(extSession.state.rawValue)
     }
@@ -104,23 +104,23 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         
         // send currentLocation ->  (lat, long) + "START or END"
         
-        self.toggleLocationUpdates(activity: InterfaceController.vm.currentActivity ?? "")
-        self.toggleSedentaryTimer(activity: InterfaceController.vm.currentActivity ?? "")
-        
-        InterfaceController.vm.startExtendedSession()
-        
         if (activity == 0.0) {
-            self.workoutManager.stopWorkout()
+            InterfaceController.vm.startExtendedSession()
+            //self.workoutManager.stopWorkout()
             //self.extSession.start()
             print("Ending at ")
             print(fetchCurrentLocation()?.coordinate)
         } else if (activity == 1.0) {
-            self.workoutManager.startWorkout()
+            //self.workoutManager.startWorkout()
             print("Starting at ")
             print(fetchCurrentLocation()?.coordinate)
             self.extSession.invalidate()
             self.sessionTimer = nil
         }
+        
+        self.toggleSedentaryTimer(activity: InterfaceController.vm.currentActivity ?? "")
+        
+        self.toggleLocationUpdates(activity: InterfaceController.vm.currentActivity ?? "")
         
         self.session.sendMessageData(data, replyHandler: nil, errorHandler: nil)
     }
