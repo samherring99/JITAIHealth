@@ -32,6 +32,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
+        InterfaceController.vm.sendMessageToPhone(tag: "nudge", loc: InterfaceController.vm.fetchCurrentLocation(), response: "")
+        
         nudgeType = activity
         
         secondsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (t) in self.secondsElapsed += 1 }
@@ -68,6 +70,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         //user clicked a response
+        
+        InterfaceController.vm.sendMessageToPhone(tag: "response", loc: InterfaceController.vm.fetchCurrentLocation(), response: response.actionIdentifier)
         
         secondsTimer?.invalidate()
         

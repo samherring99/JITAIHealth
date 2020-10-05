@@ -26,6 +26,8 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     var previousActivity = -4.0
     
+    var lastLocation: CLLocation?
+    
     //var geoManager = GeoLocationManager()
 
     override func viewDidLoad() {
@@ -44,6 +46,12 @@ class ViewController: UIViewController, WCSessionDelegate {
         }
     }
     
+    func sendEventsToWatch() {
+        let data = eventManager.busyTimes
+        let array: [String : Any] = ["event_data" : data]
+        self.session?.sendMessage(array, replyHandler: nil, errorHandler: nil)
+    }
+    
     // MARK: - WCSession code
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
@@ -54,12 +62,28 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         print("recieving")
-        print(message["name"] as! String) //Here is where we want to do stuff with our location tags, can also change/add data if needed.
-        let locationString: String = message["location"] as! String
-        print(locationString)
-        let latLong: [Substring] = locationString.split(separator: " ")
+        print(message["type"] as! String) //Here is where we want to do stuff with our location tags, can also change/add data if needed.
+        let location_context: [String] = message["loc_context"] as! [String]
+        print(location_context)
         
-        // save latLong string to userData here^
+        if message["type"] as! String == "weather" {
+            var weatherData: [String : Any] = [:]
+            
+            if lastLocation != nil {
+                weatherData = weatherManager.fetchWeatherData(latitude: Double(lastLocation?.coordinate.latitude ?? -1.0), longitude: Double(lastLocation?.coordinate.longitude ?? -1.0))
+            }
+            
+            // Call background manager method to write context, 1.0 for activity, and time to datafile.
+            
+        } else if message["type"] as! String == "nudge" {
+            
+            // call background manager to write nudge, activity, and time to datafile.
+            
+        } else if message["type"] as! String == "response" {
+            
+            // Call background manager method to write response, activity, elapsed time, and time to data file
+            
+        }
     }
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
@@ -73,6 +97,9 @@ class ViewController: UIViewController, WCSessionDelegate {
         var activityTitle = ""
         
         DispatchQueue.main.async {
+            
+            self.previousActivity = recievedData[0]
+            
             switch recievedData[0] {
             case 0.0:
                 print("sitting")
@@ -84,8 +111,7 @@ class ViewController: UIViewController, WCSessionDelegate {
                 
                 if recievedData[2] != -1.0 && recievedData[3] != -1.0 {
                     
-                    let weatherData: [String : Any] = self.weatherManager.fetchWeatherData(latitude: Double(recievedData[2]), longitude: Double(recievedData[3]))
-                    print(weatherData)
+                    self.lastLocation = CLLocation(latitude: CLLocationDegrees(recievedData[2]), longitude: CLLocationDegrees(recievedData[3]))
                     
                 }
                 

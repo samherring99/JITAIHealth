@@ -105,16 +105,15 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
         // send currentLocation ->  (lat, long) + "START or END"
         
         if (activity == 0.0) {
-            InterfaceController.vm.startExtendedSession()
+            //nterfaceController.vm.startExtendedSession()
             //self.workoutManager.stopWorkout()
             //self.extSession.start()
-            print("Ending at ")
-            print(fetchCurrentLocation()?.coordinate)
+            
+            // call geomanager method to write start/end time and location into algorithm.
+            
         } else if (activity == 1.0) {
             //self.workoutManager.startWorkout()
-            print("Starting at ")
-            print(fetchCurrentLocation()?.coordinate)
-            self.extSession.invalidate()
+            //self.extSession.invalidate()
             self.sessionTimer = nil
         }
         
@@ -151,13 +150,14 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.
     
-    func sendMessageToPhone(tag: String, loc: CLLocation?) {
+    func sendMessageToPhone(tag: String, loc: CLLocation?, response: String) {
+        var context: [String] = []
         
-        let tags: [String] = geoManager.isWithinRadiusOfTag(radius: 100.0)
+        if loc != nil {
+            context = geoManager.isWithinRadiusOfTag(radius: 100.0)
+        }
         
-        if InterfaceController.vm.lastResponse != nil { }
-        
-        let dataArray = ["tags" : tags] as [String : Any]
+        let dataArray = ["type" : tag, "loc_context" : context, "response" : response] as [String : Any]
         
         self.session.sendMessage(dataArray, replyHandler: nil, errorHandler: { error in
             print(error)

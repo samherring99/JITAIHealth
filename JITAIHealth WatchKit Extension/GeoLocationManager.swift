@@ -21,6 +21,10 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
     var newLocation:CLLocation?
     var nudgeOutcome:Bool
     
+    var totalDistance:Int
+    
+    var timeBounds: (Date, Date)
+    
     var delegate: GeoLocationDelegate?
     
     override init()
@@ -28,11 +32,12 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         nudgeOutcome = false
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        totalDistance = 0
+        timeBounds = (Date.distantPast, Date.distantFuture)
         super.init()
         locationManager.delegate = self
         locationManager.requestLocation()
         locationManager.requestAlwaysAuthorization()
-        
         delegate = self
         //locationManager.startUpdatingLocation()
         
@@ -58,6 +63,7 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         else
         {
             self.newLocation = latestLocation
+            self.totalDistance += Int(self.newLocation?.distance(from: self.currentLocation!) ?? 0)
             //decide to nudge or not
             if !self.nudgeOutcome
             {
@@ -87,6 +93,7 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         let distance = self.currentLocation?.distance(from: self.newLocation!)
         if Int(distance!) >= threshold
         {
+            InterfaceController.vm.sendMessageToPhone(tag: "weather", loc: currentLocation, response: "")
             InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "walking")
             print(distance as Any)
             self.nudgeOutcome = true
@@ -99,16 +106,31 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         
     }
     
+    func writeLocationDistanceAndTimeToAlg(bounds: (Date, Date)) {
+        if totalDistance > 0  && bounds.0 != Date.distantPast {
+            print(totalDistance)
+            print(bounds.0.distance(to: bounds.1))
+        }
+    }
+    
     func pauseLocationUpdates(currentActivity: String)
     {
         if currentActivity == "sitting"
         {
+            self.timeBounds.1 = Date.init()
+            self.writeLocationDistanceAndTimeToAlg(bounds: self.timeBounds)
             self.locationManager.stopUpdatingLocation()
             print("Stopping walking updates")
+            self.currentLocation = nil
+            self.totalDistance = 0
+            self.timeBounds = (Date.distantPast, Date.distantFuture)
+            
         }
         if currentActivity == "walking"
         {
+            self.timeBounds = (Date.distantPast, Date.distantFuture)
             self.locationManager.startUpdatingLocation()
+            self.timeBounds.0 = Date.init()
             print("Starting walking updates")
         }
     }
