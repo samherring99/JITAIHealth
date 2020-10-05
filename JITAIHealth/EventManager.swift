@@ -11,6 +11,8 @@ import EventKit
 class EventManager: NSObject {
     
     let eventStore = EKEventStore()
+    var busyTimes: [((Int, Int, Int), (Int, Int, Int))] = []
+    
     
     override init() {
         super.init()
@@ -41,6 +43,10 @@ class EventManager: NSObject {
         default:
             print("Case Default")
         }
+    }
+    
+    func resetBusyTimesArray() {
+        busyTimes = []
     }
     
     // Helper function to convert seconds into HMS
@@ -124,6 +130,8 @@ class EventManager: NSObject {
                         print(getHMSComponentsFromDate(date: event.endDate))
                         
                     }
+                    
+                    busyTimes.append((getHMSComponentsFromDate(date: event.startDate), getHMSComponentsFromDate(date: event.endDate)))
                 }
             }
         }
