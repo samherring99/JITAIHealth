@@ -40,6 +40,7 @@ class BackgroundManager: NSObject {
 
     
     // At the end of the day, call at night and/or when charging?
+    //      - end activity detection
     //      - Send datafile to cloud
 
 }

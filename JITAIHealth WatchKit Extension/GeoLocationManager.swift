@@ -16,6 +16,10 @@ protocol GeoLocationDelegate: class {
 class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelegate
 {
     
+    private let climacellBaseURL = "https://api.climacell.co/v3/locations"
+    private let climacellRealtimeURL = "https://api.climacell.co/v3/weather/realtime"
+    private let climacellAPIKey = "QmLFTZGhoHOiSGMjQtDNyqE7ZGfRiSB4"
+    
     var locationManager:CLLocationManager
     var currentLocation:CLLocation?
     var newLocation:CLLocation?
@@ -93,7 +97,9 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         let distance = self.currentLocation?.distance(from: self.newLocation!)
         if Int(distance!) >= threshold
         {
-            InterfaceController.vm.sendMessageToPhone(tag: "weather", loc: currentLocation, response: "")
+            var weatherData: [String : Any] = [:]
+            weatherData = fetchWeatherData(latitude: currentLocation!.coordinate.latitude, longitude: currentLocation!.coordinate.longitude)
+            InterfaceController.vm.sendMessageToPhone(type: "weather", loc: currentLocation!, data: weatherData)
             InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "walking")
             print(distance as Any)
             self.nudgeOutcome = true
@@ -194,4 +200,43 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         
         return Array(Set(actual)) as [String]
     }
+    
+    func fetchWeatherData(latitude: Double, longitude: Double) -> [String : Any] {
+        // This is a pretty simple networking task, so the shared session will do.
+        let session = URLSession.shared
+        
+        var dataFrame: [String : Any] = [:]
+        
+        //let weatherRequestURL = URL(string: "\(climacellBaseURL)?APPID=\(climacellAPIKey)&q=\(latitude),\(longitude)")
+        
+        // 'fields' parameter isfound in documentation to get the correct data we need.
+        
+        let weatherRequestURL = URL(string: "\(climacellRealtimeURL)?unit_system=si&fields=temp,wind_speed&apikey=\(climacellAPIKey)&lat=\(latitude)&lon=\(longitude)")
+        
+        // The data task retrieves the data.
+        let dataTask = session.dataTask(with: weatherRequestURL! as URL)
+        {
+            (data: Data?, response: URLResponse?, error: Error?) in
+          if let error = error
+          {
+            // Case 1: Error
+            // We got some kind of error while trying to get data from the server.
+            print("Error:\n\(error)")
+          }
+          else
+          {
+            // Case 2: Success
+            // We got a response from the server!
+            print("Raw data:\n\(data!)\n")
+            let dataString = String(data: data!, encoding: String.Encoding.utf8)
+            print("Human-readable data:\n\(dataString!)")
+            dataFrame["test"] = dataString!
+          }
+        }
+        
+        // The data task is set up...launch it!
+        dataTask.resume()
+        
+        return dataFrame
+      }
 }

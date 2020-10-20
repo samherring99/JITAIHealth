@@ -150,14 +150,14 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate, WorkoutMana
     
     // This is called from the Tag Controller when a location tag is pressed to send the data to the phone app.
     
-    func sendMessageToPhone(tag: String, loc: CLLocation?, response: String) {
+    func sendMessageToPhone(type: String, loc: CLLocation?, data: [String : Any]) {
         var context: [String] = []
         
         if loc != nil {
             context = geoManager.isWithinRadiusOfTag(radius: 100.0)
         }
         
-        let dataArray = ["type" : tag, "loc_context" : context, "response" : response] as [String : Any]
+        let dataArray = ["type" : type, "loc_context" : context, "data" : data] as [String : Any]
         
         self.session.sendMessage(dataArray, replyHandler: nil, errorHandler: { error in
             print(error)
