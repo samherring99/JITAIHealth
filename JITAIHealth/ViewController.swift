@@ -69,8 +69,10 @@ class ViewController: UIViewController, WCSessionDelegate {
         if message["type"] as! String == "weather" {
             var weatherData: [String : Any] = [:]
             
+            // Write weather data here.
+            
             if lastLocation != nil {
-                weatherData = weatherManager.fetchWeatherData(latitude: Double(lastLocation?.coordinate.latitude ?? -1.0), longitude: Double(lastLocation?.coordinate.longitude ?? -1.0))
+                //weatherData = weatherManager.fetchWeatherData(latitude: Double(lastLocation?.coordinate.latitude ?? -1.0), longitude: Double(lastLocation?.coordinate.longitude ?? -1.0))
             }
             
             // Call background manager method to write context, 1.0 for activity, and time to datafile.

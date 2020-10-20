@@ -32,7 +32,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
-        InterfaceController.vm.sendMessageToPhone(tag: "nudge", loc: InterfaceController.vm.fetchCurrentLocation(), response: "")
+        InterfaceController.vm.sendMessageToPhone(type: "nudge", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["nudge_type" : activity])
         
         nudgeType = activity
         
@@ -71,7 +71,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         //user clicked a response
         
-        InterfaceController.vm.sendMessageToPhone(tag: "response", loc: InterfaceController.vm.fetchCurrentLocation(), response: response.actionIdentifier)
+        InterfaceController.vm.sendMessageToPhone(type: "response", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["response_type" : response.actionIdentifier, "response time" : secondsElapsed])
         
         secondsTimer?.invalidate()
         
