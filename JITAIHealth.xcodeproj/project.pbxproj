@@ -34,6 +34,8 @@
 		0A2F8C8B24F3FC70002FFCDF /* GeoLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */; };
 		0A2F8C8C24F3FC73002FFCDF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */; };
 		0A2F8C8E24F6B881002FFCDF /* SedentaryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F8C8D24F6B881002FFCDF /* SedentaryDataManager.swift */; };
+		0A4CD4142540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A4CD4122540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld */; };
+		0A4CD4152540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A4CD4122540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld */; };
 		0AB07CCC24D465F400B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCB24D465F400B51630 /* HealthKit.framework */; };
 		0AB07CCF24D4660200B51630 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB07CCE24D4660200B51630 /* HealthKit.framework */; };
 		0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB07CD024D46D6000B51630 /* ViewModel.swift */; };
@@ -132,6 +134,7 @@
 		0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationManager.swift; sourceTree = "<group>"; };
 		0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		0A2F8C8D24F6B881002FFCDF /* SedentaryDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SedentaryDataManager.swift; sourceTree = "<group>"; };
+		0A4CD4132540AA0A00CB4FA9 /* JITAIStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JITAIStore.xcdatamodel; sourceTree = "<group>"; };
 		0AB07CC924D465F400B51630 /* JITAIHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JITAIHealth.entitlements; sourceTree = "<group>"; };
 		0AB07CCB24D465F400B51630 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "JITAIHealth WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -250,6 +253,7 @@
 				0AB07CCD24D4660200B51630 /* JITAIHealth WatchKit Extension.entitlements */,
 				0A2F8C8724ED74D1002FFCDF /* GeoLocationManager.swift */,
 				0A2F8C8D24F6B881002FFCDF /* SedentaryDataManager.swift */,
+				0A4CD4122540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld */,
 				0A2E86D9251BF8830035C2A9 /* DailyController.swift */,
 				0A2F8C8924ED89A4002FFCDF /* NotificationManager.swift */,
 				0A0904C024D459F3001FBDAA /* InterfaceController.swift */,
@@ -468,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A09048A24D459EF001FBDAA /* ViewController.swift in Sources */,
+				0A4CD4142540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld in Sources */,
 				0A09048624D459EF001FBDAA /* AppDelegate.swift in Sources */,
 				0A0FAC5925129050006898A5 /* WeatherManager.swift in Sources */,
 				0A2E86E1251BF8A10035C2A9 /* BackgroundManager.swift in Sources */,
@@ -503,6 +508,7 @@
 				0A0904C324D459F3001FBDAA /* ExtensionDelegate.swift in Sources */,
 				0A2F8C8B24F3FC70002FFCDF /* GeoLocationManager.swift in Sources */,
 				0A0904E024D45ABC001FBDAA /* WorkoutManager.swift in Sources */,
+				0A4CD4152540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld in Sources */,
 				0A0904C124D459F3001FBDAA /* InterfaceController.swift in Sources */,
 				0A2F8C8E24F6B881002FFCDF /* SedentaryDataManager.swift in Sources */,
 				0AB07CD124D46D6000B51630 /* ViewModel.swift in Sources */,
@@ -683,14 +689,14 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "JITAIHealth WatchKit Extension/JITAIHealth WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT462FHWZ5;
+				DEVELOPMENT_TEAM = 7E65X69U2S;
 				INFOPLIST_FILE = "JITAIHealth WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.herringapps.JITAIHealth.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.udel.walkingwithJITAI.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -706,14 +712,14 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "JITAIHealth WatchKit Extension/JITAIHealth WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT462FHWZ5;
+				DEVELOPMENT_TEAM = 7E65X69U2S;
 				INFOPLIST_FILE = "JITAIHealth WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.herringapps.JITAIHealth.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.udel.walkingwithJITAI.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -731,10 +737,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT462FHWZ5;
+				DEVELOPMENT_TEAM = 7E65X69U2S;
 				IBSC_MODULE = JITAIHealth_WatchKit_Extension;
 				INFOPLIST_FILE = "JITAIHealth WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.herringapps.JITAIHealth.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.udel.walkingwithJITAI.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -751,10 +757,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT462FHWZ5;
+				DEVELOPMENT_TEAM = 7E65X69U2S;
 				IBSC_MODULE = JITAIHealth_WatchKit_Extension;
 				INFOPLIST_FILE = "JITAIHealth WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.herringapps.JITAIHealth.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.udel.walkingwithJITAI.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -772,14 +778,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JITAIHealth/JITAIHealth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT462FHWZ5;
+				DEVELOPMENT_TEAM = 7E65X69U2S;
 				INFOPLIST_FILE = JITAIHealth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.herringapps.JITAIHealth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.udel.walkingwithJITAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -794,14 +800,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JITAIHealth/JITAIHealth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT462FHWZ5;
+				DEVELOPMENT_TEAM = 7E65X69U2S;
 				INFOPLIST_FILE = JITAIHealth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.herringapps.JITAIHealth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.udel.walkingwithJITAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -960,6 +966,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0A4CD4122540AA0A00CB4FA9 /* JITAIStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0A4CD4132540AA0A00CB4FA9 /* JITAIStore.xcdatamodel */,
+			);
+			currentVersion = 0A4CD4132540AA0A00CB4FA9 /* JITAIStore.xcdatamodel */;
+			path = JITAIStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0A09047A24D459EF001FBDAA /* Project object */;
 }

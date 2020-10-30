@@ -16,9 +16,13 @@ protocol GeoLocationDelegate: class {
 class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelegate
 {
     
+    // Weather API Keys
+    
     private let climacellBaseURL = "https://api.climacell.co/v3/locations"
     private let climacellRealtimeURL = "https://api.climacell.co/v3/weather/realtime"
     private let climacellAPIKey = "QmLFTZGhoHOiSGMjQtDNyqE7ZGfRiSB4"
+    
+    // Necessary location variables and distance measure.
     
     var locationManager:CLLocationManager
     var currentLocation:CLLocation?
@@ -27,9 +31,9 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
     
     var totalDistance:Int
     
-    var timeBounds: (Date, Date)
+    var updateTimer: Timer?
     
-    var delegate: GeoLocationDelegate?
+    var delegate: GeoLocationDelegate? // delegate adds ToggleUpdates method.
     
     override init()
     {
@@ -37,24 +41,23 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         totalDistance = 0
-        timeBounds = (Date.distantPast, Date.distantFuture)
         super.init()
         locationManager.delegate = self
         locationManager.requestLocation()
         locationManager.requestAlwaysAuthorization()
         delegate = self
+        // Initialization, but dont start until user starts walking.
         //locationManager.startUpdatingLocation()
         
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            locationManager.requestLocation()
+            locationManager.requestLocation()// if only authorized when in use
         }
     }
     
-     // Update location
-    
+     // Update location (user location changes)
     
       func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation])
       {
@@ -67,8 +70,13 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         else
         {
             self.newLocation = latestLocation
-            self.totalDistance += Int(self.newLocation?.distance(from: self.currentLocation!) ?? 0)
+            self.totalDistance += Int(self.newLocation?.distance(from: self.currentLocation!) ?? 0)  // increase totalDistance traveled.
             //decide to nudge or not
+            
+            // send data every so often
+            
+            //InterfaceController.vm.sendMessageToPhone(type: "walking", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["time" : Date.init(), "distance" : totalDistance])
+            
             if !self.nudgeOutcome
             {
                 computeNudge(currentActivity: "walking", threshold: 200)
@@ -100,6 +108,10 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
             var weatherData: [String : Any] = [:]
             weatherData = fetchWeatherData(latitude: currentLocation!.coordinate.latitude, longitude: currentLocation!.coordinate.longitude)
             InterfaceController.vm.sendMessageToPhone(type: "weather", loc: currentLocation!, data: weatherData)
+            
+                // Above code fetches weather.
+            
+            print("Write walking nudge and weather data point")
             InterfaceController.vm.notifManager.pushNotificationToWatch(activity: "walking")
             print(distance as Any)
             self.nudgeOutcome = true
@@ -108,48 +120,57 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         
     }
     
-    func afterDetection() {
-        
-    }
-    
-    func writeLocationDistanceAndTimeToAlg(bounds: (Date, Date)) {
-        if totalDistance > 0  && bounds.0 != Date.distantPast {
-            print(totalDistance)
-            print(bounds.0.distance(to: bounds.1))
-        }
-    }
+    // Main updating function called by Interface
     
     func pauseLocationUpdates(currentActivity: String)
     {
+        // If sitting, user has finished walking
         if currentActivity == "sitting"
         {
-            self.timeBounds.1 = Date.init()
-            self.writeLocationDistanceAndTimeToAlg(bounds: self.timeBounds)
+            
+            //self.writeLocationDistanceAndTimeToAlg(bounds: self.timeBounds)
+            self.currentLocation = locationManager.location
+            self.updateTimer = nil
             self.locationManager.stopUpdatingLocation()
             print("Stopping walking updates")
-            self.currentLocation = nil
+            self.nudgeOutcome = false
             self.totalDistance = 0
-            self.timeBounds = (Date.distantPast, Date.distantFuture)
             
         }
+        // If walking, user has just started walking
         if currentActivity == "walking"
         {
-            self.timeBounds = (Date.distantPast, Date.distantFuture)
             self.locationManager.startUpdatingLocation()
-            self.timeBounds.0 = Date.init()
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.writeWalkingData), userInfo: nil, repeats: true)
             print("Starting walking updates")
+            print("Write start walking data point")
+            
+//            var weatherData: [String : Any] = [:]
+//            weatherData = fetchWeatherData(latitude: currentLocation!.coordinate.latitude, longitude: currentLocation!.coordinate.longitude)
+//
+//            InterfaceController.vm.sendMessageToPhone(type: "start_walking", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["time" : Date.init(), "weather" : weatherData])
         }
     }
+    
+    // This method writes a walking data point to the Interface controller with a set timer.
+    @objc func writeWalkingData() {
+        print("Writing walking data")
+        InterfaceController.vm.sendMessageToPhone(type: "walking", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["time" : Date.init(), "distance" : totalDistance])
+    }
+    
+    // Delegate Method
     
     func toggleLocationUpdates(activity: String) {
         self.pauseLocationUpdates(currentActivity: activity)
     }
     
+    // This method returns the user's current location.
+    
     func fetchCurrentLocation() -> CLLocation? {
         locationManager.requestLocation()
         let cl: CLLocation? = locationManager.location
         //currentLocation = cl
-        return cl
+        return cl ?? currentLocation
     }
     
     // This method checks to see if the user is within a certain radius of any tags, returns them in a list if yes, returns nil if user is in no tag radius distances.
@@ -201,6 +222,8 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         return Array(Set(actual)) as [String]
     }
     
+    // Fetch weather data method call when start walking or when threshold?
+    
     func fetchWeatherData(latitude: Double, longitude: Double) -> [String : Any] {
         // This is a pretty simple networking task, so the shared session will do.
         let session = URLSession.shared
@@ -236,7 +259,8 @@ class GeoLocationManager: NSObject, CLLocationManagerDelegate, GeoLocationDelega
         
         // The data task is set up...launch it!
         dataTask.resume()
+        // wait or conditional check?
         
         return dataFrame
-      }
+    }
 }

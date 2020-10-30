@@ -10,6 +10,8 @@ import Foundation
 import UserNotifications
 
 class NotificationController: WKUserNotificationInterfaceController {
+    
+    // Not really used as all notifications are programatically created.
 
     override init() {
         // Initialize variables here.

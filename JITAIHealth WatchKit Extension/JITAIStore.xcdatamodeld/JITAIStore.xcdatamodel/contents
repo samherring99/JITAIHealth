@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="20A5395g" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Nudge" representedClassName="Nudge" isAbstract="YES" syncable="YES" codeGenerationType="class"/>
+    <entity name="Sitting_Follow" representedClassName="Sitting_Follow" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="success" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Sitting_Nudge" representedClassName="Sitting_Nudge" parentEntity="Nudge" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="response" optional="YES" attributeType="String"/>
+        <attribute name="seconds_elapsed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Start_Sitting" representedClassName="Start_Sitting" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Start_Walking" representedClassName="Start_Walking" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="temp" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="wind_speed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Walking" representedClassName="Walking" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Walking_Nudge" representedClassName="Walking_Nudge" parentEntity="Nudge" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="response" optional="YES" attributeType="String"/>
+        <attribute name="seconds_elapsed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="Nudge" positionX="196.8333129882812" positionY="785.3053131103511" width="128" height="43"/>
+        <element name="Sitting_Follow" positionX="-217.7911987304688" positionY="1249.990051269531" width="128" height="88"/>
+        <element name="Sitting_Nudge" positionX="26.65924072265625" positionY="1194.081024169922" width="128" height="103"/>
+        <element name="Start_Sitting" positionX="-163.9947509765625" positionY="824.9940338134761" width="128" height="73"/>
+        <element name="Start_Walking" positionX="2.072937011718693" positionY="934.4309844970703" width="128" height="118"/>
+        <element name="Walking" positionX="-213.8732910156251" positionY="1019.464630126953" width="128" height="103"/>
+        <element name="Walking_Nudge" positionX="236.97216796875" positionY="1193.282928466797" width="128" height="133"/>
+    </elements>
+</model>

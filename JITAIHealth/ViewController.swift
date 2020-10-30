@@ -14,21 +14,19 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     // MARK: -  Initialization
     
-    @IBOutlet var hrLabel: UILabel!
-    @IBOutlet var activityLabel: UILabel!
+    @IBOutlet var hrLabel: UILabel! // UI Label to display heart rate.
+    @IBOutlet var activityLabel: UILabel! // UI Label to display string of activity.
     
     var session : WCSession? // WatchConnectivity Session
     
     var dataSource = [String]()
     
-    var eventManager = EventManager()
-    var weatherManager = WeatherManager()
+    var eventManager = EventManager() // Main instance of EventManager class
+    //var weatherManager = WeatherManager()
     
     var previousActivity = -4.0
     
     var lastLocation: CLLocation?
-    
-    //var geoManager = GeoLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +45,7 @@ class ViewController: UIViewController, WCSessionDelegate {
     }
     
     func sendEventsToWatch() {
+        // Send an array of busy times throughout the day to the watch.
         let data = eventManager.busyTimes
         let array: [String : Any] = ["event_data" : data]
         self.session?.sendMessage(array, replyHandler: nil, errorHandler: nil)
@@ -62,6 +61,7 @@ class ViewController: UIViewController, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         print("recieving")
+        // RIGHT NOW DOES NOTHING
         print(message["type"] as! String) //Here is where we want to do stuff with our location tags, can also change/add data if needed.
         let location_context: [String] = message["loc_context"] as! [String]
         print(location_context)

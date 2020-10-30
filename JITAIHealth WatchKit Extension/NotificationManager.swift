@@ -13,11 +13,11 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     
     // This class currently handles all notification pushing for the application and extension.
     
-    var secondsElapsed = 0
+    var secondsElapsed = 0 // Placeholder for duration
     
-    var secondsTimer: Timer?
+    var secondsTimer: Timer? // TImer to measure duration
     
-    var nudgeType = ""
+    var nudgeType = "" // Placeholder for nudge type
     
     override init() {
         super.init()
@@ -32,14 +32,16 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
-        InterfaceController.vm.sendMessageToPhone(type: "nudge", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["nudge_type" : activity])
+        InterfaceController.vm.sendMessageToPhone(type: "nudge", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["time" : Date.init(), "nudge_type" : activity])
         
         nudgeType = activity
         
-        secondsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (t) in self.secondsElapsed += 1 }
+        secondsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (t) in self.secondsElapsed += 1 } // Start Timer
+        
+        
+        // CREATE NOTIFICATION - Can all be changed/reordered to fit our needs
         
         let content = UNMutableNotificationContent()
-        //UNNotificationAction
         content.title = "Hey there..."
         content.body = "It looks like you have been " + activity + "  for a while."
         
@@ -49,9 +51,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         content.categoryIdentifier = "nudge"
         content.userInfo["customData"] = "test data"
         
-        let confirm = UNNotificationAction(identifier: "confirm", title: "Yes, I am " + activity, options: [])
+        let confirm = UNNotificationAction(identifier: "confirm", title: "Yes, I am " + activity, options: []) // First button and title
         
-        let deny = UNNotificationAction(identifier: "deny", title: "No, I am not " + activity, options: .destructive)
+        let deny = UNNotificationAction(identifier: "deny", title: "No, I am not " + activity, options: .destructive) // Second button and title
         
         let category = UNNotificationCategory(identifier: "nudge", actions: [confirm, deny], intentIdentifiers: [], options: .customDismissAction)
 
@@ -59,7 +61,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "nudgeRequest", content: content, trigger: nil)
+        let request = UNNotificationRequest(identifier: "nudgeRequest", content: content, trigger: nil) // Send a nudge request with our data with no trigger (instant).
         
         UNUserNotificationCenter.current().add(request) { (error) in
             print(error)
@@ -69,9 +71,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        //user clicked a response
-        
-        InterfaceController.vm.sendMessageToPhone(type: "response", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["response_type" : response.actionIdentifier, "response time" : secondsElapsed])
+        // This method is called when a user clicked a response to nudge
         
         secondsTimer?.invalidate()
         
@@ -96,13 +96,16 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate  {
                 default:
                     break
                 }
+                // switch for types of responses
             }
+        
+        InterfaceController.vm.sendMessageToPhone(type: "response", loc: InterfaceController.vm.fetchCurrentLocation(), data: ["time" : Date.init(), "response" : response.actionIdentifier, "response_time" : secondsElapsed])
         
         print(nudgeType)
         print(secondsElapsed)
         print(response.actionIdentifier)
         
-        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications() // Nudge has been responded to so delete.
     }
     
     

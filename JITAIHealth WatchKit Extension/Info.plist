@@ -25,7 +25,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>com.herringapps.JITAIHealth.watchkitapp</string>
+			<string>com.udel.walkingwithJITAI.watchkitapp</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
@@ -36,6 +36,10 @@
 	<string>Can we share your health data?</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Can we update your health records?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Can JITAIHealth use your location data?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Can we process your location data?</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Can we use your motion to determine activities?</string>
 	<key>UIBackgroundModes</key>
@@ -52,9 +56,5 @@
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<false/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Can JITAIHealth use your location data?</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Can we process your location data?</string>
 </dict>
 </plist>
