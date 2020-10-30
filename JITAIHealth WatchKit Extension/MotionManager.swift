@@ -88,16 +88,13 @@ class MotionManager {
                 self.previousDetection = prediction
             }
             
-            
-            
-            
             // Send message activity
-            
-            
             
         }
         
     }
+    
+    // THis method stops all activity and workout updates.
     
     func stopUpdates() {
         motionActivityManager.stopActivityUpdates()

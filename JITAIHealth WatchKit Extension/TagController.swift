@@ -11,11 +11,11 @@ import Foundation
 
 class TagController: WKInterfaceController {
 
-    @IBOutlet var table: WKInterfaceTable!
+    @IBOutlet var table: WKInterfaceTable! // Table instance
     
-    @IBOutlet var entryField: WKInterfaceTextField!
+    @IBOutlet var entryField: WKInterfaceTextField! // Placeholder field variable
     
-    var locationList: [String]!
+    var locationList: [String]! // Placeholder data list
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -35,20 +35,23 @@ class TagController: WKInterfaceController {
             UserDefaults.standard.set([""], forKey: "names")
         }
         
-        table.setNumberOfRows(locationList.count, withRowType: "locationRow")
+        // fill locationList with saved preferences as well above
+        
+        table.setNumberOfRows(locationList.count, withRowType: "locationRow") // create table
         
         for index in 0..<table.numberOfRows {
             guard let controller = table.rowController(at: index) as? TagRowController else { continue }
 
-          controller.location = locationList[index]
+          controller.location = locationList[index] // fill row in table
         }
+        
+        // Configure interface objects here.
         
         entryField.setWidth(contentFrame.width)
         entryField.setText("")
         entryField.setPlaceholder("Other")
         entryField.setTextColor(UIColor.darkGray)
         
-        // Configure interface objects here.
     }
     
     // Called when the user selects a row
@@ -81,6 +84,9 @@ class TagController: WKInterfaceController {
             var longs: [String] = UserDefaults.standard.stringArray(forKey: name + "_long")!
             lats.append(String(coords.coordinate.latitude))
             longs.append(String(coords.coordinate.longitude))
+            
+            // Saves key value pairs for lat and long with the place name.
+            
             UserDefaults.standard.set(lats, forKey: name + "_lat")
             UserDefaults.standard.set(longs, forKey: name + "_long")
         }

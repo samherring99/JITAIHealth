@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+// Delegate to pass methods around
 protocol ViewModelDelegate: class {
     func stopWorkoutUpdates()
     func startExtendedSession()
@@ -19,25 +20,33 @@ protocol ViewModelDelegate: class {
 
 class ViewModel: ObservableObject {
     
-    var delegate: ViewModelDelegate?
+    var delegate: ViewModelDelegate? // delegate reference
     
-    var notifManager = NotificationManager()
+    var notifManager = NotificationManager() // instance of notification manager for reference
     
-    var currentActivity: String?
+    var currentActivity: String? // Placeholder for current activity from the user.
     
-    var lastResponse: String?
+    var lastResponse: String? // Placeholder for user response
+    
+    //Delegate toggle updates method
     
     func stopWorkoutUpdates() {
         delegate?.stopWorkoutUpdates()
     }
     
+    // Delegate start extended session method
+    
     func startExtendedSession() {
         delegate?.startExtendedSession()
     }
     
+    // Send message to phone (used in data passing)
+    
     func sendMessageToPhone(type: String, loc: CLLocation?, data: [String : Any]) {
         delegate?.sendMessageToPhone(type: type, loc: loc, data: data)
     }
+    
+    // Method to return the user's current location.
     
     func fetchCurrentLocation() -> CLLocation? {
         return delegate?.fetchCurrentLocation()

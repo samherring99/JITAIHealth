@@ -11,12 +11,12 @@ class TagRowController: NSObject {
     
     @IBOutlet var locationLabel: WKInterfaceLabel!
     
-    //  This controller represents the 'cell' view for the WKInterfaceTable using a property observer.
+    //  This controller represents the 'cell' view for the WKInterfaceTable using a property observer for location.
     
     var location: String? {
       didSet {
         guard let location = location else { return }
-        locationLabel.setText(location)
+        locationLabel.setText(location) // set this row's label to be location.
         
       }
     }

@@ -75,7 +75,7 @@ class EventManager: NSObject {
             let now = NSDate.now
             let oneDayAfter = NSDate(timeIntervalSinceNow: 24*3600)
             
-            let predicate = eventStore.predicateForEvents(withStart: now as Date, end: oneDayAfter as Date, calendars: [calendar])
+            let predicate = eventStore.predicateForEvents(withStart: now as Date, end: oneDayAfter as Date, calendars: [calendar]) // read today's events in all calendars
             
             let events = eventStore.events(matching: predicate)
             
